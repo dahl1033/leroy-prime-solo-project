@@ -18,6 +18,9 @@ class UserPage extends Component {
   onClickNewOrder = (id) => {
     this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
   }
+  backToMixes = () =>{
+    this.props.history.push(`/mixes`);
+  }
   render() {
     return (
       <div>
@@ -34,6 +37,7 @@ class UserPage extends Component {
                             </>
           })}
         </ul>
+        <button onClick={this.backToMixes}>Mixes</button>
       </div>
       
     );
