@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-
+import './UserPage.css';
 class UserPage extends Component {
   componentDidMount() {
     this.getNutItems();
@@ -15,23 +15,27 @@ class UserPage extends Component {
     this.props.dispatch({type: 'FETCH_CASHEW_ITEMS', payload: 'cashew'});
     this.props.dispatch({type: 'FETCH_PISTACHIO_ITEMS', payload: 'pistachio'});
   }
+  onClickNewOrder = (id) => {
+    this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
+  }
   render() {
     return (
       <div>
+        <button onClick={() => this.onClickNewOrder(this.props.store.user.id)}>New Order</button>
         <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
         {console.log(this.props.store.items.almondItems)}
         <ul>
-          {this.props.store.items.itemInventory.map((item) => {
-            return <>
-            <li>
-              {item.name}
-            </li>
-            </>
+          {this.props.store.items.almondItems.map((item) => {
+                      return <>
+                        <li>
+                          {item.name}
+                        </li>
+                            </>
           })}
         </ul>
-        <LogOutButton className="log-in" />
       </div>
+      
     );
   }
 }
