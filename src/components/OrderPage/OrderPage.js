@@ -18,6 +18,10 @@ class OrderPage extends Component {
     this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
     this.props.history.push(`/mixes`)
   }
+  onClickContinueOrder = () => {
+    this.props.history.push(`/mixes`)
+
+  }
   render() {
     return (
       <div>
@@ -25,6 +29,7 @@ class OrderPage extends Component {
         <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
         <p>Your Working Order ID is: {this.props.store.order.currentOrderId}</p>
+        <button onClick={this.onClickContinueOrder}>Continue</button>
       </div>
       
     );
