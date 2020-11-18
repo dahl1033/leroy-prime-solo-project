@@ -16,6 +16,7 @@ class OrderPage extends Component {
 
   onClickNewOrder = (id) => {
     this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
+    this.props.history.push(`/mixes`)
   }
   render() {
     return (

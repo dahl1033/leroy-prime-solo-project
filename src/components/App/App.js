@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import OrderPage from '../OrderPage/OrderPage';
+import MixesPage from '../MixesPage/MixesPage';
 
 import './App.css';
 
@@ -54,6 +55,12 @@ class App extends Component {
               exact
               path="/order"
               component={OrderPage}
+            />
+            <ProtectedRoute
+              // logged in shows OrderPage else shows LoginPage
+              exact
+              path="/mixes"
+              component={MixesPage}
             />
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
