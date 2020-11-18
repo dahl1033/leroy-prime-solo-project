@@ -3,10 +3,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 
 // ORDER
-    function* addNewOrder(action) {
-        yield axios.post(`/api/mixBuilder/order`, action.payload)
-
-    }
 
 // ITEM INVENTORY
     // GET request to grab all inventory items from DB and assign to itemInventory reducer
@@ -41,8 +37,6 @@ function* mix_builderSaga() {
     yield takeLatest('FETCH_PECAN_ITEMS', fetchPecanItems);
     yield takeLatest('FETCH_CASHEW_ITEMS', fetchCashewItems);
     yield takeLatest('FETCH_PISTACHIO_ITEMS', fetchPistachioItems);
-    yield takeLatest('ADD_NEW_ORDER', addNewOrder);
-
 }
 
 export default mix_builderSaga;

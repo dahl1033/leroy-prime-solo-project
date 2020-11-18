@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import OrderPage from '../OrderPage/OrderPage';
 
 import './App.css';
 
@@ -49,6 +50,12 @@ class App extends Component {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
             <ProtectedRoute
+              // logged in shows OrderPage else shows LoginPage
+              exact
+              path="/order"
+              component={OrderPage}
+            />
+            <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
               path="/user"
@@ -72,7 +79,7 @@ class App extends Component {
               exact
               path="/login"
               component={LoginPage}
-              authRedirect="/user"
+              authRedirect="/order"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -81,7 +88,7 @@ class App extends Component {
               exact
               path="/registration"
               component={RegisterPage}
-              authRedirect="/user"
+              authRedirect="/order"
             />
             <ProtectedRoute
               // with authRedirect:
@@ -90,7 +97,7 @@ class App extends Component {
               exact
               path="/home"
               component={LandingPage}
-              authRedirect="/user"
+              authRedirect="/order"
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
