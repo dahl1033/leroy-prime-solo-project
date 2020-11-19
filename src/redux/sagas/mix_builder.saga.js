@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 
 // ORDER
@@ -31,12 +31,24 @@ import { put, takeLatest } from 'redux-saga/effects';
         yield put ({type: 'SET_PISTACHIO_ITEMS', payload: itemsResponse.data});
     }
 
+    function* fetchItemsInMix(action) {
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload} });    
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});
+       
+    }
+    function* addItemToMix(action) {
+        yield axios.post('/api/mixBuilder', action.payload);    
+    }
+
 function* mix_builderSaga() {
-    yield takeLatest('FETCH_INVENTORY_ITEMS', fetchInventoryItems);
-    yield takeLatest('FETCH_ALMOND_ITEMS', fetchAlmondItems);
-    yield takeLatest('FETCH_PECAN_ITEMS', fetchPecanItems);
-    yield takeLatest('FETCH_CASHEW_ITEMS', fetchCashewItems);
-    yield takeLatest('FETCH_PISTACHIO_ITEMS', fetchPistachioItems);
+    yield takeEvery('FETCH_INVENTORY_ITEMS', fetchInventoryItems);
+    yield takeEvery('FETCH_ALMOND_ITEMS', fetchAlmondItems);
+    yield takeEvery('FETCH_PECAN_ITEMS', fetchPecanItems);
+    yield takeEvery('FETCH_CASHEW_ITEMS', fetchCashewItems);
+    yield takeEvery('FETCH_PISTACHIO_ITEMS', fetchPistachioItems);
+    yield takeEvery('ADD_ITEM_TO_MIX', addItemToMix);
+    yield takeEvery('FETCH_ITEMS_IN_MIX', fetchItemsInMix);
+
 }
 
 export default mix_builderSaga;

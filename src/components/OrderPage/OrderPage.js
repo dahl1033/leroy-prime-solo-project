@@ -20,7 +20,6 @@ class OrderPage extends Component {
   }
   onClickContinueOrder = () => {
     this.props.history.push(`/mixes`)
-
   }
   render() {
     return (

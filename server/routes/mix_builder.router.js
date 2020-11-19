@@ -30,11 +30,36 @@ router.get('/item', (req, res) => {
       res.sendStatus(500);
   })
 });
+router.get('/mixItems', (req, res) => {
+  const queryText = `SELECT mix_id, item_id, item_size, items.name, items.price_per_lb
+                      FROM "items_in_mix"
+                      JOIN mix ON mix.id = items_in_mix.mix_id
+                      JOIN items ON items.id = items_in_mix.item_id
+                      WHERE mix_id = $1;`;
+  pool.query(queryText,[req.query.item])
+  .then((result) => {
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query ${err}`);
+      res.sendStatus(500);
+  })
+});
 /**
- * POST route template
+ * POST route template 
  */
 router.post('/', (req, res) => {
-  // POST route code here
+  // POST route code here 
+  const queryText = `INSERT INTO "items_in_mix" ("mix_id", "item_id","item_size") VALUES  ($1, $2, 2);`
+    console.log(req.body)
+    pool.query(queryText, [req.body.mix_id, req.body.item_id])
+        .then( (result) => {
+            res.sendStatus(200);
+        })
+        .catch( (error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        });
 });
 
 module.exports = router;
