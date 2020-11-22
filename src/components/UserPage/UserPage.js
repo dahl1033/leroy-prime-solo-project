@@ -6,6 +6,8 @@ import './UserPage.css';
 class UserPage extends Component {
   componentDidMount() {
     this.getNutItems();
+    this.props.dispatch({type: 'FETCH_PROPORTIONS', payload: {id: this.props.store.mixes.currentWorkingMix.id}});
+
   }
   // dispatch calls to get all the nuts from the DB based off their type of nut on page load
   getNutItems = () => {
@@ -21,6 +23,7 @@ class UserPage extends Component {
         console.log("FIRING!!!!!");
         this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: this.props.store.mixes.currentWorkingMix.id});
     }
+
   addItemToMix = (item) => {
     console.log("IN addItemToMix: mixID =",this.props.store.mixes.currentWorkingMix.id, "item ID", item.id);
     this.props.dispatch({ type: 'ADD_ITEM_TO_MIX', 
@@ -39,7 +42,7 @@ class UserPage extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container shadow-lg rounded">
         
         <h1 id="mixBuilder">Mix Builder</h1>
         <p>Your user ID is: {this.props.store.user.id}</p>
@@ -56,19 +59,18 @@ class UserPage extends Component {
           })}
         </ul>
         <h1>Items in Mix:</h1>
-        <ul>
+        <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {
                       return <>
-                        <li onClick={() => this.deleteItemFromMix(item)}>
+                        <li className="ordersli shadow-lg rounded" onClick={() => this.deleteItemFromMix(item)}>
                           {item.name}
                         </li>
                             </>
           })}
         </ul>
         <button onClick={this.backToMixes}>Mixes</button>
-        
+        <img id='bg' src='https://www.shopmarketbasket.com/sites/default/files/inline-images/trail-mix-in-bowls-body_1.jpg'></img>
       </div>
-      
     );
   }
 }

@@ -29,6 +29,22 @@ router.get('/:id', (req, res) => {
   })
 });
 
+router.get('/:mixId/:mixSizeId', (req, res) => {
+    console.log('in get size', req.params);
+  const queryText = `SELECT mix_size.mix_size
+                        FROM "mix"
+                        JOIN mix_size ON mix_size.id = mix.mix_size_id
+                        WHERE mix.id = $1 AND mix_size_id = $2;`;
+  pool.query(queryText, [req.params.mixId, req.params.mixSizeId])
+  .then((result) => {
+      console.log('in get size', result.rows[0]);
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query ${err}`);
+      res.sendStatus(500);
+  })
+});
 /**
  * POST route template
  */

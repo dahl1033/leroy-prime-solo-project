@@ -25,7 +25,7 @@ class MixesPage extends Component {
     getMixesToOrder = () => {
         this.props.dispatch({type: 'FETCH_MIXES_TO_ORDER'});
     }
-    onClickAddMixToOrder = (mix, mix_size_id, order_id) => {
+    onClickAddMixToOrder = (mix_size_id, order_id) => {
         this.props.dispatch({type: 'ADD_MIX_TO_ORDER', payload: {mix_size_id: mix_size_id,
                                                                     order_id: order_id
         }});
@@ -33,6 +33,7 @@ class MixesPage extends Component {
     }
     onClickContinueMixToOrder = (mix) =>{
         this.props.dispatch({type: 'SET_CURRENT_WORKING_MIX', payload: mix});
+        this.props.dispatch({type: 'FETCH_CURRENT_MIX_SIZE', payload: {mix: mix}});
         this.props.history.push(`/user`);
     }
     backToOrders = () => {
@@ -45,24 +46,24 @@ class MixesPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container shadow-lg rounded">
         <h2>{this.state.heading}</h2>
         <p>Your Working Order ID is: {this.props.store.order.currentOrderId}</p>
         <h2>Current Mixes:</h2>
-        <ul>
+        <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.mixesInOrder.map((item) => {
                       return (
-                        <li key={item.id} onClick={() => this.onClickContinueMixToOrder(item)}>
+                        <li key={item.id} className="ordersli shadow-lg rounded" onClick={() => this.onClickContinueMixToOrder(item)}>
                           {item.id}
                         </li>
                       )
           })}
         </ul>
         <h2>Add New Mix</h2>
-        <ul>
+        <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
-                        <li key={item.id} onClick={() => this.onClickAddMixToOrder(item, item.id, this.props.store.order.currentOrderId)}>
+                        <li key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrderId)}>
                           {item.mix_size}
                         </li>
                       )
@@ -70,6 +71,7 @@ class MixesPage extends Component {
         </ul>
         <button onClick={this.backToOrders}>Orders</button>
         <button onClick={this.completeOrder}>Submit</button>
+                <img id='bg' src='https://storage.needpix.com/rsynced_images/tas-de-noix-.jpg'></img>
       </div>
     );
   }

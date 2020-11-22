@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-
+import './OrderPage.css';
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
@@ -31,16 +31,16 @@ class OrderPage extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container shadow-lg rounded" >
         <button onClick={() => this.onClickNewOrder(this.props.store.user.id)}>New Order</button>
-        <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
+        <h1 id="heading">My Orders</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
         <p>Your Working Order ID is: {this.props.store.order.currentOrderId}</p>
         <h1>Orders Uncompleted:</h1>
-        <ul>
+        <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersUncompleted.map((item) => {
                       return <>
-                        <li onClick={() => this.setWorkingOrder(item)}>
+                        <li className="ordersli shadow-lg rounded" onClick={() => this.setWorkingOrder(item)}>
                           {item.id}
                           
                         </li>
@@ -49,16 +49,17 @@ class OrderPage extends Component {
           })}
         </ul>
         <h1>Orders Completed:</h1>
-        <ul>
+        <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersCompleted.map((item) => {
                       return <>
-                        <li>
+                        <li className="ordersli shadow-lg rounded">
                           {item.id}
                         </li>
                             </>
           })}
         </ul>
         <button onClick={this.onClickContinueOrder}>Continue</button>
+        <img id='bg' src='https://render.fineartamerica.com/images/images-profile-flow/400/images/artworkimages/mediumlarge/1/nuts-in-black-and-white-tom-mc-nemar.jpg'></img>
       </div>
       // onClick={() => this.addItemToMix(item)}
       

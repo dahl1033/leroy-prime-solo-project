@@ -46,6 +46,11 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
         const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload.mix_id} });   
         yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});
     }
+    function* fetchProportionOfItems(action) {
+        const itemsResponse = yield axios.get(`/api/mixBuilder/${action.payload.id}`); 
+        console.log(`IN fetchItemsInMix payload: ${itemsResponse.data}`);   
+        yield put ({type: 'SET_PROPORTIONS', payload: itemsResponse.data});
+    }
 
 
 function* mix_builderSaga() {
@@ -57,6 +62,7 @@ function* mix_builderSaga() {
     yield takeEvery('ADD_ITEM_TO_MIX', addItemToMix);
     yield takeEvery('FETCH_ITEMS_IN_MIX', fetchItemsInMix);
     yield takeEvery('DELETE_ITEM_IN_MIX', deleteItemFromMix);
+    yield takeEvery('FETCH_PROPORTIONS', fetchProportionOfItems);
 
 }
 

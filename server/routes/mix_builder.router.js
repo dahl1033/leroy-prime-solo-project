@@ -5,7 +5,6 @@ const router = express.Router();
 /**
  * GET route template
  */
-
 router.get('/items', (req, res) => {
   const queryText = `SELECT * FROM "items";`;
   pool.query(queryText)
@@ -37,6 +36,17 @@ router.get('/mixItems', (req, res) => {
                       JOIN items ON items.id = items_in_mix.item_id
                       WHERE mix_id = $1;`;
   pool.query(queryText,[req.query.item])
+  .then((result) => {
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query ${err}`);
+      res.sendStatus(500);
+  })
+});
+router.get('/:mixId', (req, res) => {
+  const queryText = `SELECT id, proportion FROM items_in_mix WHERE mix_id = $1;`;
+  pool.query(queryText,[req.params.mixId])
   .then((result) => {
       res.send(result.rows)
   })

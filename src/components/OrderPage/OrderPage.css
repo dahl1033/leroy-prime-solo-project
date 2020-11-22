@@ -1,0 +1,36 @@
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    filter: blur(8px) grayscale(100%);
+}
+
+ul{
+
+}
+
+.container{
+    padding: 3rem !important;
+}
+#heading{
+    color: white;
+    text-align: center;
+}
+body{
+    background-color: black;
+    color: white;
+}
+.ordersli{
+    padding: 2rem;
+}
+.ordersul {
+    padding: 2rem;
+}
+.ordersli:hover {
+    transform: scale(1.05);
+}

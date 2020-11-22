@@ -33,10 +33,19 @@ const itemsInCurrentMix = (state=[], action) => {
             return action.payload
     }
 }
+const currentMixSize = (state = 0, action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_CURRENT_MIX_SIZE':
+            return action.payload;
+    }
+}
 
 export default combineReducers ({
     mixesInOrder,
     mixesToOrder,
     currentWorkingMix,
-    itemsInCurrentMix
+    itemsInCurrentMix,
+    currentMixSize
 });
