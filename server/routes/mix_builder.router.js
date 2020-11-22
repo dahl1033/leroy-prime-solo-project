@@ -61,5 +61,22 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         });
 });
+router.delete('/:id', (req, res) => {
+  // DELETE route code here
+  if (req.isAuthenticated()){
+    const queryText = `DELETE FROM "items_in_mix" WHERE ("mix_id", "item_id") = ($1, $2);`;
+    console.log('in Delete router', req.query.item_id);
+    pool.query(queryText, [req.params.id, req.query.item_id])
+    .then( (result) => {
+      res.sendStatus(200);
+    })
+    .catch( (error) => {
+      console.log(`Error on query ${error}`);
+      res.sendStatus(500);
+    });
+  } else {
+      alert ("not today buddy")
+  }
+});
 
 module.exports = router;

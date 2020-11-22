@@ -35,6 +35,13 @@ class MixesPage extends Component {
         this.props.dispatch({type: 'SET_CURRENT_WORKING_MIX', payload: mix});
         this.props.history.push(`/user`);
     }
+    backToOrders = () => {
+      this.props.history.push(`/order`);
+    }
+    completeOrder = () => {
+      this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.currentOrderId}});
+      this.props.history.push(`/order`);
+    }
 
   render() {
     return (
@@ -61,6 +68,8 @@ class MixesPage extends Component {
                       )
           })}
         </ul>
+        <button onClick={this.backToOrders}>Orders</button>
+        <button onClick={this.completeOrder}>Submit</button>
       </div>
     );
   }

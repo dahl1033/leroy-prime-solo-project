@@ -29,6 +29,7 @@ const itemsInCurrentMix = (state=[], action) => {
         default:
             return state
         case 'SET_ITEMS_IN_MIX':
+            console.log(`IN itemsInCurrentMix ${action.payload}`);
             return action.payload
     }
 }

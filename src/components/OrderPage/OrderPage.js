@@ -11,7 +11,8 @@ class OrderPage extends Component {
     heading: 'Class Component',
   };
   componentDidMount() {
-      this.props.dispatch({type: 'FETCH_WORKING_ORDER'})
+      this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED'});
+      this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED'});
   }
 
   onClickNewOrder = (id) => {
@@ -21,6 +22,13 @@ class OrderPage extends Component {
   onClickContinueOrder = () => {
     this.props.history.push(`/mixes`)
   }
+  setWorkingOrder = (item) => {
+    this.props.dispatch({type: 'SET_CURRENT_ORDER_ID', payload: item.id})
+    this.props.history.push(`/mixes`)
+  }
+  onClickDeleteOrder = (id) => {
+    this.props.dispatch({type: 'DELETE_ORDER', payload: {id: id}});
+  }
   render() {
     return (
       <div>
@@ -28,8 +36,31 @@ class OrderPage extends Component {
         <h1 id="welcome">Welcome, {this.props.store.user.username}!</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
         <p>Your Working Order ID is: {this.props.store.order.currentOrderId}</p>
+        <h1>Orders Uncompleted:</h1>
+        <ul>
+          {this.props.store.order.ordersUncompleted.map((item) => {
+                      return <>
+                        <li onClick={() => this.setWorkingOrder(item)}>
+                          {item.id}
+                          
+                        </li>
+                        <button onClick={() => this.onClickDeleteOrder(item.id)}>Delete</button>
+                            </>
+          })}
+        </ul>
+        <h1>Orders Completed:</h1>
+        <ul>
+          {this.props.store.order.ordersCompleted.map((item) => {
+                      return <>
+                        <li>
+                          {item.id}
+                        </li>
+                            </>
+          })}
+        </ul>
         <button onClick={this.onClickContinueOrder}>Continue</button>
       </div>
+      // onClick={() => this.addItemToMix(item)}
       
     );
   }

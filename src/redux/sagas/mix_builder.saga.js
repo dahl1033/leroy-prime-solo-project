@@ -32,13 +32,21 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
     }
 
     function* fetchItemsInMix(action) {
-        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload} });    
-        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});
-       
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload} }); 
+        console.log(`IN fetchItemsInMix payload: ${itemsResponse.data}`);   
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});  
     }
     function* addItemToMix(action) {
-        yield axios.post('/api/mixBuilder', action.payload);    
+        yield axios.post('/api/mixBuilder', action.payload);  
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload.mix_id} });   
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data}); 
     }
+    function* deleteItemFromMix(action){
+        yield axios.delete(`/api/mixBuilder/${action.payload.mix_id}`, {params: {item_id: action.payload.item_id}});
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload.mix_id} });   
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});
+    }
+
 
 function* mix_builderSaga() {
     yield takeEvery('FETCH_INVENTORY_ITEMS', fetchInventoryItems);
@@ -48,6 +56,7 @@ function* mix_builderSaga() {
     yield takeEvery('FETCH_PISTACHIO_ITEMS', fetchPistachioItems);
     yield takeEvery('ADD_ITEM_TO_MIX', addItemToMix);
     yield takeEvery('FETCH_ITEMS_IN_MIX', fetchItemsInMix);
+    yield takeEvery('DELETE_ITEM_IN_MIX', deleteItemFromMix);
 
 }
 

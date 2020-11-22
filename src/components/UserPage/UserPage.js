@@ -18,15 +18,21 @@ class UserPage extends Component {
   }
   
   getItemsInMix = () => {
+        console.log("FIRING!!!!!");
         this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: this.props.store.mixes.currentWorkingMix.id});
     }
   addItemToMix = (item) => {
+    console.log("IN addItemToMix: mixID =",this.props.store.mixes.currentWorkingMix.id, "item ID", item.id);
     this.props.dispatch({ type: 'ADD_ITEM_TO_MIX', 
                           payload: { 
                             mix_id: this.props.store.mixes.currentWorkingMix.id,
                             item_id: item.id
                           }});
     this.getItemsInMix();
+  }
+  deleteItemFromMix = (item) => {
+    console.log('in delete', item);
+    this.props.dispatch({type: 'DELETE_ITEM_IN_MIX', payload: item });
   }
   backToMixes = () =>{
     this.props.history.push(`/mixes`);
@@ -53,13 +59,14 @@ class UserPage extends Component {
         <ul>
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {
                       return <>
-                        <li>
+                        <li onClick={() => this.deleteItemFromMix(item)}>
                           {item.name}
                         </li>
                             </>
           })}
         </ul>
         <button onClick={this.backToMixes}>Mixes</button>
+        
       </div>
       
     );
