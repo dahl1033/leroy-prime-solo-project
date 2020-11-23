@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+
 import './UserPage.css';
 class UserPage extends Component {
   componentDidMount() {
@@ -40,40 +45,59 @@ class UserPage extends Component {
   backToMixes = () =>{
     this.props.history.push(`/mixes`);
   }
+  
   render() {
     return (
       <div className="container shadow-lg rounded">
         <header>
-          <ul className="outerUl">
-            <li className="outerLi">Almonds
-              <ul className="innerUl" name="Almonds" >Almonds
+          {/* <div className="topnav" id="myTopnav">
+            <div className="dropdown">
+              <button className="dropbtn">Almonds</button>
+              <div className="dropdown-content" >
+                <a>Almonds</a>
                 {this.props.store.items.almondItems.map((item) => {
                   return <>
-                    <li className="innerLi" onClick={() => this.addItemToMix(item)}>
+                    <a onClick={() => this.addItemToMix(item)}>
                     {item.name}
-                    </li>
+                    </a>
                         </>
                       })}
-              </ul>
-            </li>
-          </ul>
-            
+              </div>
+            </div>
+          </div> */}
+          <Accordion>
+            <AccordionSummary
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className="heading">Nuts</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Accordion>
+                <AccordionSummary
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography className="heading">Almonds</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  {this.props.store.items.almondItems.map((item) => {
+                  return <>
+                    <Typography onClick={() => this.addItemToMix(item)}>
+                    {item.name}
+                    </Typography>
+                        </>
+                      })}
+                </AccordionDetails>
+              </Accordion>
+            </AccordionDetails>
+          </Accordion>
           
         </header>
         <h1 id="mixBuilder">Mix Builder</h1>
         <p>Your user ID is: {this.props.store.user.id}</p>
         <p>Your order ID is: {this.props.store.order.currentOrderId}</p>
         <p>Your mix ID is: {this.props.store.mixes.currentWorkingMix.id}</p>
-        <h1>Almonds:</h1>
-        <ul>
-          {this.props.store.items.almondItems.map((item) => {
-                      return <>
-                        <li onClick={() => this.addItemToMix(item)}>
-                          {item.name}
-                        </li>
-                            </>
-          })}
-        </ul>
         <h1>Items in Mix:</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {

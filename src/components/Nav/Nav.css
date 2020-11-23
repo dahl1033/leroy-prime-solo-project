@@ -15,7 +15,10 @@
   text-align: center;
 
 }
-
+.nav-title {
+  position: absolute;
+  margin: 3rem;
+}
 .nav-link {
   float: left;
   color: #f2f2f2;
@@ -39,4 +42,5 @@
 
 .nav-right {
   float: right;
+  margin-right: 4rem;
 }

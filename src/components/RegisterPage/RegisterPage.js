@@ -27,6 +27,7 @@ class RegisterPage extends Component {
             Login
           </button>
         </center>
+        <img id='bg' src='https://cdn.pixabay.com/photo/2020/09/29/08/16/mixed-nuts-5612176__340.jpg'></img>
       </div>
     );
   }

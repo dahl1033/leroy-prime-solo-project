@@ -42,6 +42,8 @@ class MixesPage extends Component {
     }
     completeOrder = () => {
       this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.currentOrderId}});
+      this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
+      this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
       this.props.history.push(`/order`);
     }
 

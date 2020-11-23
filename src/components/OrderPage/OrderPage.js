@@ -11,12 +11,13 @@ class OrderPage extends Component {
     heading: 'Class Component',
   };
   componentDidMount() {
-      this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED'});
-      this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED'});
+      this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
+      this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
   }
 
   onClickNewOrder = (id) => {
     this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
+    //this.props.dispatch({type: 'FETCH_CURRENT_ORDER_ID', payload: {id: id}})
     this.props.history.push(`/mixes`)
   }
   onClickContinueOrder = () => {
