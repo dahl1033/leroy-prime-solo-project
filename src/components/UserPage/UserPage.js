@@ -6,7 +6,7 @@ import './UserPage.css';
 class UserPage extends Component {
   componentDidMount() {
     this.getNutItems();
-    this.props.dispatch({type: 'FETCH_PROPORTIONS', payload: {id: this.props.store.mixes.currentWorkingMix.id}});
+    // this.props.dispatch({type: 'FETCH_PROPORTIONS', payload: {id: this.props.store.mixes.currentWorkingMix.id}});
 
   }
   // dispatch calls to get all the nuts from the DB based off their type of nut on page load
@@ -43,7 +43,23 @@ class UserPage extends Component {
   render() {
     return (
       <div className="container shadow-lg rounded">
-        
+        <header>
+          <ul className="outerUl">
+            <li className="outerLi">Almonds
+              <ul className="innerUl" name="Almonds" >Almonds
+                {this.props.store.items.almondItems.map((item) => {
+                  return <>
+                    <li className="innerLi" onClick={() => this.addItemToMix(item)}>
+                    {item.name}
+                    </li>
+                        </>
+                      })}
+              </ul>
+            </li>
+          </ul>
+            
+          
+        </header>
         <h1 id="mixBuilder">Mix Builder</h1>
         <p>Your user ID is: {this.props.store.user.id}</p>
         <p>Your order ID is: {this.props.store.order.currentOrderId}</p>
