@@ -1,0 +1,17 @@
+.selectMixesLi {
+    padding: 2rem;
+    list-style: none;
+    flex-grow: 1;
+    margin: 1rem;
+
+}
+.selectMixesLi:hover {
+    transform: scale(1.05);
+}
+.selectMixesUl {
+    padding: 2rem;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    text-align: center;
+}

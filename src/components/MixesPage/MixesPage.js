@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import './MixesPage.css'
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -60,10 +61,10 @@ class MixesPage extends Component {
           })}
         </ul>
         <h2>Add New Mix</h2>
-        <ul className="ordersul shadow-lg rounded">
+        <ul className="selectMixesUl shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
-                        <li key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrderId)}>
+                        <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrderId)}>
                           {item.mix_size}
                         </li>
                       )
