@@ -5,17 +5,33 @@ function* addNewOrder(action) {
         yield axios.post(`/api/order`, action.payload)
         yield put ({type: 'FETCH_WORKING_ORDER'});
     }
-function* getWorkingOrder() {
-    const itemsResponse = yield axios.get('/api/order');
-    if (typeof itemsResponse.data[0] != 'undefined'){
-        console.log('in getWorkingOrder', itemsResponse.data[0]);
-        yield put ({type: 'SET_CURRENT_ORDER_ID', payload: itemsResponse.data[0].id});
+function* getOrdersCompleted() {
+    const itemsResponse = yield axios.get('/api/order/orders',{ params: {type: 'TRUE'} });
+    console.log('in getOrdersCompleted',itemsResponse.data);
+    yield put ({type: 'SET_ORDERS_COMPLETED', payload: itemsResponse.data});
     }
-}
+function* getOrdersUncompleted() {
+    const itemsResponse = yield axios.get('/api/order/orders',{ params: {type: 'FALSE'} });
+    console.log('in getOrdersUncompleted',itemsResponse.data);
+    yield put ({type: 'SET_ORDERS_UNCOMPLETED', payload: itemsResponse.data});
+    }
+function* submitOrder(action) {
+        yield axios.put(`/api/order/submit`, action.payload);
+        yield put ({type: 'FETCH_ORDERS_COMPLETED'});
+        yield put ({type: 'FETCH_ORDERS_UNCOMPLETED'});
+    }
+function* deleteOrder(action) {
+        yield axios.delete(`/api/order/${action.payload.id}` );
+        yield put ({type: 'FETCH_ORDERS_COMPLETED'});
+        yield put ({type: 'FETCH_ORDERS_UNCOMPLETED'});
+    }
 
 function* orderSaga() {
     yield takeLatest('ADD_NEW_ORDER', addNewOrder);
-    yield takeLatest('FETCH_WORKING_ORDER', getWorkingOrder);
+    yield takeLatest('FETCH_ORDERS_COMPLETED', getOrdersCompleted);
+    yield takeLatest('FETCH_ORDERS_UNCOMPLETED', getOrdersUncompleted);
+    yield takeLatest('SUBMIT_ORDER', submitOrder);
+    yield takeLatest('DELETE_ORDER', deleteOrder);
 }
 
 export default orderSaga;

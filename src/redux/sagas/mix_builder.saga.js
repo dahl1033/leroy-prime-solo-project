@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 
 // ORDER
@@ -31,12 +31,39 @@ import { put, takeLatest } from 'redux-saga/effects';
         yield put ({type: 'SET_PISTACHIO_ITEMS', payload: itemsResponse.data});
     }
 
+    function* fetchItemsInMix(action) {
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload} }); 
+        console.log(`IN fetchItemsInMix payload: ${itemsResponse.data}`);   
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});  
+    }
+    function* addItemToMix(action) {
+        yield axios.post('/api/mixBuilder', action.payload);  
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload.mix_id} });   
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data}); 
+    }
+    function* deleteItemFromMix(action){
+        yield axios.delete(`/api/mixBuilder/${action.payload.mix_id}`, {params: {item_id: action.payload.item_id}});
+        const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {item: action.payload.mix_id} });   
+        yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data});
+    }
+    function* fetchProportionOfItems(action) {
+        const itemsResponse = yield axios.get(`/api/mixBuilder/${action.payload.id}`); 
+        console.log(`IN fetchItemsInMix payload: ${itemsResponse.data}`);   
+        yield put ({type: 'SET_PROPORTIONS', payload: itemsResponse.data});
+    }
+
+
 function* mix_builderSaga() {
-    yield takeLatest('FETCH_INVENTORY_ITEMS', fetchInventoryItems);
-    yield takeLatest('FETCH_ALMOND_ITEMS', fetchAlmondItems);
-    yield takeLatest('FETCH_PECAN_ITEMS', fetchPecanItems);
-    yield takeLatest('FETCH_CASHEW_ITEMS', fetchCashewItems);
-    yield takeLatest('FETCH_PISTACHIO_ITEMS', fetchPistachioItems);
+    yield takeEvery('FETCH_INVENTORY_ITEMS', fetchInventoryItems);
+    yield takeEvery('FETCH_ALMOND_ITEMS', fetchAlmondItems);
+    yield takeEvery('FETCH_PECAN_ITEMS', fetchPecanItems);
+    yield takeEvery('FETCH_CASHEW_ITEMS', fetchCashewItems);
+    yield takeEvery('FETCH_PISTACHIO_ITEMS', fetchPistachioItems);
+    yield takeEvery('ADD_ITEM_TO_MIX', addItemToMix);
+    yield takeEvery('FETCH_ITEMS_IN_MIX', fetchItemsInMix);
+    yield takeEvery('DELETE_ITEM_IN_MIX', deleteItemFromMix);
+    yield takeEvery('FETCH_PROPORTIONS', fetchProportionOfItems);
+
 }
 
 export default mix_builderSaga;

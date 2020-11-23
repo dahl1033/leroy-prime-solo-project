@@ -8,6 +8,7 @@ const itemInventory = (state = [], action) => {
             return action.payload;
     }
 }
+
 const almondItems = (state = [], action) => {
     switch (action.type) {
         default:
@@ -40,6 +41,15 @@ const pistachioItems = (state = [], action) => {
             return action.payload;
     }
 }
+const proportions = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_PROPORTIONS':
+            return action.payload;
+    }
+}
+
 
 
 
@@ -51,4 +61,5 @@ export default combineReducers ({
     pecanItems,
     cashewItems,
     pistachioItems,
+    proportions,
 });
