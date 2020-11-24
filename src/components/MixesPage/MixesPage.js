@@ -20,8 +20,12 @@ class MixesPage extends Component {
         this.getMixesToOrder();
         this.getMixesInOrder();
     }
+    componentDidUpdate() {
+        this.getMixesToOrder();
+        this.getMixesInOrder();
+    }
     getMixesInOrder = () => {
-        this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.currentOrderId});
+        this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.currentOrder});
     }
     getMixesToOrder = () => {
         this.props.dispatch({type: 'FETCH_MIXES_TO_ORDER'});
@@ -41,9 +45,8 @@ class MixesPage extends Component {
       this.props.history.push(`/order`);
     }
     completeOrder = () => {
-      this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.currentOrderId}});
-      this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
-      this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
+      this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.currentOrder.id, user_id: this.props.store.user.id}});
+      
       this.props.history.push(`/order`);
     }
 
@@ -51,7 +54,7 @@ class MixesPage extends Component {
     return (
       <div className="container shadow-lg rounded">
         <h2>{this.state.heading}</h2>
-        <p>Your Working Order ID is: {this.props.store.order.currentOrderId}</p>
+        <p>Your Working Order ID is: {this.props.store.order.currentOrder}</p>
         <h2>Current Mixes:</h2>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.mixesInOrder.map((item) => {
@@ -67,7 +70,7 @@ class MixesPage extends Component {
         <ul className="selectMixesUl shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
-                        <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrderId)}>
+                        <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrder.id)}>
                           {item.mix_size}(lb) Mix
                         </li>
                       )

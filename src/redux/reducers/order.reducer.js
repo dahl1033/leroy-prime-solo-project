@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const currentOrderId = (state=0, action) => {
+const currentOrder = (state={}, action) => {
     switch (action.type) {
         default:
             return state;
@@ -26,7 +26,7 @@ const ordersUncompleted = (state=[], action) => {
 }
 
 export default combineReducers ({
-    currentOrderId,
+    currentOrder,
     ordersCompleted,
     ordersUncompleted
 });

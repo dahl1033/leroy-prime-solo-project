@@ -96,7 +96,7 @@ class UserPage extends Component {
         </header>
         <h1 id="mixBuilder">Mix Builder</h1>
         <p>Your user ID is: {this.props.store.user.id}</p>
-        <p>Your order ID is: {this.props.store.order.currentOrderId}</p>
+        <p>Your order ID is: {this.props.store.order.currentOrder.id}</p>
         <p>Your mix ID is: {this.props.store.mixes.currentWorkingMix.id}</p>
         <h1>Items in Mix:</h1>
         <ul className="ordersul shadow-lg rounded">

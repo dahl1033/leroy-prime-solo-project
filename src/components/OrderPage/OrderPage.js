@@ -17,18 +17,18 @@ class OrderPage extends Component {
 
   onClickNewOrder = (id) => {
     this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
-    //this.props.dispatch({type: 'FETCH_CURRENT_ORDER_ID', payload: {id: id}})
+    this.props.dispatch({type: 'FETCH_CURRENT_ORDER_ID', payload: {id: id}})
     this.props.history.push(`/mixes`)
   }
   onClickContinueOrder = () => {
     this.props.history.push(`/mixes`)
   }
   setWorkingOrder = (item) => {
-    this.props.dispatch({type: 'SET_CURRENT_ORDER_ID', payload: item.id})
+    this.props.dispatch({type: 'SET_CURRENT_ORDER_ID', payload: item})
     this.props.history.push(`/mixes`)
   }
   onClickDeleteOrder = (id) => {
-    this.props.dispatch({type: 'DELETE_ORDER', payload: {id: id}});
+    this.props.dispatch({type: 'DELETE_ORDER', payload: {id: id, user_id: this.props.store.user.id}});
   }
   render() {
     return (
@@ -36,7 +36,7 @@ class OrderPage extends Component {
         <button onClick={() => this.onClickNewOrder(this.props.store.user.id)}>New Order</button>
         <h1 id="heading">My Orders</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
-        <p>Your Working Order ID is: {this.props.store.order.currentOrderId}</p>
+        <p>Your Working Order ID is: {this.props.store.order.currentOrder.id}</p>
         <h1>Orders Uncompleted:</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersUncompleted.map((item) => {
