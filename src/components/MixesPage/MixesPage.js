@@ -17,27 +17,20 @@ class MixesPage extends Component {
     heading: 'Mixes',
   };
     componentDidMount() {
-        this.getMixesToOrder();
-        this.getMixesInOrder();
-    }
-    componentDidUpdate() {
-        this.getMixesToOrder();
-        this.getMixesInOrder();
-    }
-    getMixesInOrder = () => {
-        this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.currentOrder});
-    }
-    getMixesToOrder = () => {
         this.props.dispatch({type: 'FETCH_MIXES_TO_ORDER'});
+        this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.orderId});
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.store.mixes== prevProps.store.mixes) {
+            this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.orderId});
+        }
     }
     onClickAddMixToOrder = (mix_size_id, order_id) => {
-        this.props.dispatch({type: 'ADD_MIX_TO_ORDER', payload: {mix_size_id: mix_size_id,
-                                                                    order_id: order_id
-        }});
-        this.getMixesInOrder();
+        this.props.dispatch({type: 'ADD_MIX_TO_ORDER', payload: {mix_size_id: mix_size_id, order_id: order_id}});
+        this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.orderId});
     }
     onClickContinueMixToOrder = (mix) =>{
-        this.props.dispatch({type: 'SET_CURRENT_WORKING_MIX', payload: mix});
+        this.props.dispatch({type: 'SET_MIX_ID', payload: {mixId: mix.id}});
         this.props.dispatch({type: 'FETCH_CURRENT_MIX_SIZE', payload: {mix: mix}});
         this.props.history.push(`/user`);
     }
@@ -45,7 +38,7 @@ class MixesPage extends Component {
       this.props.history.push(`/order`);
     }
     completeOrder = () => {
-      this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.currentOrder.id, user_id: this.props.store.user.id}});
+      this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.orderId, user_id: this.props.store.user.id}});
       
       this.props.history.push(`/order`);
     }
@@ -54,7 +47,7 @@ class MixesPage extends Component {
     return (
       <div className="container shadow-lg rounded">
         <h2>{this.state.heading}</h2>
-        <p>Your Working Order ID is: {this.props.store.order.currentOrder}</p>
+        <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
         <h2>Current Mixes:</h2>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.mixesInOrder.map((item) => {
@@ -70,7 +63,7 @@ class MixesPage extends Component {
         <ul className="selectMixesUl shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
-                        <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrder.id)}>
+                        <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.orderId)}>
                           {item.mix_size}(lb) Mix
                         </li>
                       )

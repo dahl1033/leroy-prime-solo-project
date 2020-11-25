@@ -21,26 +21,27 @@ class UserPage extends Component {
     this.props.dispatch({type: 'FETCH_PECAN_ITEMS', payload: 'pecan'});
     this.props.dispatch({type: 'FETCH_CASHEW_ITEMS', payload: 'cashew'});
     this.props.dispatch({type: 'FETCH_PISTACHIO_ITEMS', payload: 'pistachio'});
-    this.getItemsInMix();
+    this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: {mixId: this.props.store.mixes.mixId}});
   }
   
-  getItemsInMix = () => {
-        console.log("FIRING!!!!!");
-        this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: this.props.store.mixes.currentWorkingMix.id});
-    }
+  componentDidUpdate() {
+
+  }
 
   addItemToMix = (item) => {
-    console.log("IN addItemToMix: mixID =",this.props.store.mixes.currentWorkingMix.id, "item ID", item.id);
+    console.log("IN addItemToMix: mixID =",this.props.store.mixes.mixId, "item ID", item.id);
     this.props.dispatch({ type: 'ADD_ITEM_TO_MIX', 
                           payload: { 
-                            mix_id: this.props.store.mixes.currentWorkingMix.id,
+                            mix_id: this.props.store.mixes.mixId,
                             item_id: item.id
                           }});
-    this.getItemsInMix();
+    this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: {mixId: this.props.store.mixes.mixId}});
   }
   deleteItemFromMix = (item) => {
     console.log('in delete', item);
     this.props.dispatch({type: 'DELETE_ITEM_IN_MIX', payload: item });
+    this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: {mixId: this.props.store.mixes.mixId}});
+
   }
   backToMixes = () =>{
     this.props.history.push(`/mixes`);
@@ -96,8 +97,8 @@ class UserPage extends Component {
         </header>
         <h1 id="mixBuilder">Mix Builder</h1>
         <p>Your user ID is: {this.props.store.user.id}</p>
-        <p>Your order ID is: {this.props.store.order.currentOrder.id}</p>
-        <p>Your mix ID is: {this.props.store.mixes.currentWorkingMix.id}</p>
+        <p>Your order ID is: {this.props.store.order.orderId}</p>
+        <p>Your mix ID is: {this.props.store.mixes.mixId}</p>
         <h1>Items in Mix:</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {

@@ -1,13 +1,5 @@
 import { combineReducers } from 'redux';
 
-const itemInventory = (state = [], action) => {
-    switch (action.type) {
-        default:
-            return state;
-        case 'SET_INVENTORY_ITEMS':
-            return action.payload;
-    }
-}
 
 const almondItems = (state = [], action) => {
     switch (action.type) {
@@ -56,7 +48,6 @@ const proportions = (state = [], action) => {
 
 
 export default combineReducers ({
-    itemInventory,
     almondItems,
     pecanItems,
     cashewItems,

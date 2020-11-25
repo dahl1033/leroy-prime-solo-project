@@ -21,6 +21,7 @@ router.get('/:id', (req, res) => {
   const queryText = `SELECT * FROM "mix" WHERE "order_id" = $1;`;
   pool.query(queryText, [req.params.id])
   .then((result) => {
+      console.log('GET all mixes from order', result.rows);
       res.send(result.rows)
   })
   .catch((err) => {
@@ -37,7 +38,7 @@ router.get('/:mixId/:mixSizeId', (req, res) => {
                         WHERE mix.id = $1 AND mix_size_id = $2;`;
   pool.query(queryText, [req.params.mixId, req.params.mixSizeId])
   .then((result) => {
-      console.log('in get size', result.rows[0]);
+      console.log('GET mix_size', result.rows[0]);
       res.send(result.rows)
   })
   .catch((err) => {
@@ -50,7 +51,7 @@ router.get('/:mixId/:mixSizeId', (req, res) => {
  */
 router.post('/', (req, res) => {
     const queryText = `INSERT INTO "mix" ("order_id", "mix_size_id") VALUES ($1, $2);`
-    console.log(req.body)
+    console.log('POST new mix with',req.body)
     pool.query(queryText, [req.body.order_id, req.body.mix_size_id])
         .then( (result) => {
             res.sendStatus(200);

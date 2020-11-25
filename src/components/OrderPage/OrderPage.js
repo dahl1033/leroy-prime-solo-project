@@ -14,6 +14,11 @@ class OrderPage extends Component {
       this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
       this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.store.user.id !== prevProps.store.user.id) {
+      this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
+      this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
+  }}
 
   onClickNewOrder = (id) => {
     this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
@@ -23,8 +28,8 @@ class OrderPage extends Component {
   onClickContinueOrder = () => {
     this.props.history.push(`/mixes`)
   }
-  setWorkingOrder = (item) => {
-    this.props.dispatch({type: 'SET_CURRENT_ORDER_ID', payload: item})
+  setWorkingOrder = (orderId) => {
+    this.props.dispatch({type: 'SET_CURRENT_ORDER_ID', payload: orderId})
     this.props.history.push(`/mixes`)
   }
   onClickDeleteOrder = (id) => {
@@ -36,12 +41,12 @@ class OrderPage extends Component {
         <button onClick={() => this.onClickNewOrder(this.props.store.user.id)}>New Order</button>
         <h1 id="heading">My Orders</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
-        <p>Your Working Order ID is: {this.props.store.order.currentOrder.id}</p>
+        <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
         <h1>Orders Uncompleted:</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersUncompleted.map((item) => {
                       return <>
-                        <li className="ordersli shadow-lg rounded" onClick={() => this.setWorkingOrder(item)}>
+                        <li className="ordersli shadow-lg rounded" onClick={() => this.setWorkingOrder(item.id)}>
                           {item.id}
                           
                         </li>

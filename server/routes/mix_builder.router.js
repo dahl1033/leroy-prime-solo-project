@@ -35,7 +35,7 @@ router.get('/mixItems', (req, res) => {
                       JOIN mix ON mix.id = items_in_mix.mix_id
                       JOIN items ON items.id = items_in_mix.item_id
                       WHERE mix_id = $1;`;
-  pool.query(queryText,[req.query.item])
+  pool.query(queryText,[req.query.mixId])
   .then((result) => {
       res.send(result.rows)
   })
