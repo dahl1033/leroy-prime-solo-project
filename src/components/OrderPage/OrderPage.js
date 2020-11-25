@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import FormDialog from '../NewOrderForm/NewOrderForm';
 import './OrderPage.css';
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -19,12 +20,6 @@ class OrderPage extends Component {
       this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
       this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
   }}
-
-  onClickNewOrder = (id) => {
-    this.props.dispatch({type: 'ADD_NEW_ORDER', payload: {id: id}})
-    this.props.dispatch({type: 'FETCH_CURRENT_ORDER_ID', payload: {id: id}})
-    this.props.history.push(`/mixes`)
-  }
   onClickContinueOrder = () => {
     this.props.history.push(`/mixes`)
   }
@@ -38,7 +33,7 @@ class OrderPage extends Component {
   render() {
     return (
       <div className="container shadow-lg rounded" >
-        <button onClick={() => this.onClickNewOrder(this.props.store.user.id)}>New Order</button>
+        <FormDialog/>
         <h1 id="heading">My Orders</h1>
         <p>Your ID is: {this.props.store.user.id}</p>
         <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
@@ -48,7 +43,7 @@ class OrderPage extends Component {
                       return <>
                         <li className="ordersli shadow-lg rounded" onClick={() => this.setWorkingOrder(item.id)}>
                           {item.id}
-                          
+                          {item.name}
                         </li>
                         <button onClick={() => this.onClickDeleteOrder(item.id)}>Delete</button>
                             </>
@@ -60,6 +55,7 @@ class OrderPage extends Component {
                       return <>
                         <li className="ordersli shadow-lg rounded">
                           {item.id}
+                          {item.name}
                         </li>
                             </>
           })}

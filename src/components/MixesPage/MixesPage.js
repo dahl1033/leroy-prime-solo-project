@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import './MixesPage.css'
+import MixFormDialog from '../NewMixForm/NewMixForm';
+import './MixesPage.css';
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -47,6 +48,7 @@ class MixesPage extends Component {
     return (
       <div className="container shadow-lg rounded">
         <h2>{this.state.heading}</h2>
+        
         <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
         <h2>Current Mixes:</h2>
         <ul className="ordersul shadow-lg rounded">
@@ -63,10 +65,10 @@ class MixesPage extends Component {
         <ul className="selectMixesUl shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
-                        <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.orderId)}>
-                          {item.mix_size}(lb) Mix
+                        <li className="selectMixesLi shadow-lg rounded" key={item.id}>
+                          <MixFormDialog item={item.id} size={item.mix_size}/>
                         </li>
-                      )
+                        )
           })}
         </ul>
         <button onClick={this.backToOrders}>Orders</button>

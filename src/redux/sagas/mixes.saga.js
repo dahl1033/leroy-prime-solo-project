@@ -23,6 +23,7 @@ function* fetchCurrentMixSize(action) {
 }
 // POST request to add a selected size mix to order
 function* addMixToOrder(action) {
+    console.log('ia mixes saga, adding mix to order ap', action.payload);
     yield axios.post('/api/mixes', action.payload);
     yield put ({type: 'FETCH_MIXES_IN_ORDER', payload: action.payload.order_id});
 }

@@ -37,9 +37,9 @@ router.get('/orders', (req, res) => {
  */
 router.post('/', (req, res) => {
   // code here
-  const queryText = `INSERT INTO "order" ("user_id")  VALUES (${req.body.id});`
+  const queryText = `INSERT INTO "order" (user_id, name)  VALUES ($1, $2);`
     console.log('in post order',req.body)
-    pool.query(queryText)
+    pool.query(queryText, [req.body.id, req.body.name])
         .then( (result) => {
             res.sendStatus(200);
         })

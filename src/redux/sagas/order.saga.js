@@ -25,7 +25,7 @@ function* submitOrder(action) {
 // POST request to create a new order
 function* addNewOrder(action) {
     yield axios.post(`/api/order`, action.payload)
-    yield put ({type: 'FETCH_WORKING_ORDER'});
+    yield put ({type: 'FETCH_CURRENT_ORDER_ID', payload: action.payload});
     }
 // DELETE request to get rid of an order
 function* deleteOrder(action) {

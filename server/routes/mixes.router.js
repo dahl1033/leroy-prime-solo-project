@@ -50,9 +50,9 @@ router.get('/:mixId/:mixSizeId', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    const queryText = `INSERT INTO "mix" ("order_id", "mix_size_id") VALUES ($1, $2);`
+    const queryText = `INSERT INTO "mix" ("order_id", "mix_size_id", "name") VALUES ($1, $2, $3);`
     console.log('POST new mix with',req.body)
-    pool.query(queryText, [req.body.order_id, req.body.mix_size_id])
+    pool.query(queryText, [req.body.order_id, req.body.mix_size_id, req.body.name])
         .then( (result) => {
             res.sendStatus(200);
         })
