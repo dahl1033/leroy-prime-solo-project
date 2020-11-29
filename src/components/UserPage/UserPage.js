@@ -21,7 +21,13 @@ class UserPage extends Component {
     this.props.dispatch({type: 'FETCH_PECAN_ITEMS', payload: 'pecan'});
     this.props.dispatch({type: 'FETCH_CASHEW_ITEMS', payload: 'cashew'});
     this.props.dispatch({type: 'FETCH_PISTACHIO_ITEMS', payload: 'pistachio'});
+    this.props.dispatch({type: 'FETCH_DRIED_FRUIT_ITEMS', payload: 'dried'});
+    this.props.dispatch({type: 'FETCH_CONFECTIONS_ITEMS'});
     this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: {mixId: this.props.store.mixes.mixId}});
+    this.props.dispatch({type: 'FETCH_GUMMY_ITEMS', payload: 'gummy'});
+    this.props.dispatch({type: 'FETCH_BANANA_ITEMS', payload: 'chip'});
+    this.props.dispatch({type: 'FETCH_PRETZEL_ITEMS', payload: 'pretzel'});
+
   }
   
   componentDidUpdate() {
@@ -105,12 +111,12 @@ class UserPage extends Component {
             </div>
           </div>
           <div class="dropdown shadow-lg">
-            <button class="dropbtn1 shadow-lg">Nuts</button>
+            <button class="dropbtn1 shadow-lg">Dried Fruits</button>
             <div class="dropdown-content1">
               <div class="dropdown-wrapper">
-              <button class="dropbtn2">Almonds</button>
+              <button class="dropbtn2">Dried Fruits</button>
               <div class="dropdown-content2">
-                {this.props.store.items.almondItems.map((item) => {
+                {this.props.store.items.driedFruitItems.map((item) => {
                     return <>
                       <a onClick={() => this.addItemToMix(item)}>
                       {item.name}
@@ -121,35 +127,47 @@ class UserPage extends Component {
               </div>
               </div>
             </div>
-
-          {/* <Accordion>
-            <AccordionSummary
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className="heading">Nuts</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Accordion>
-                <AccordionSummary
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography className="heading">Almonds</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  {this.props.store.items.almondItems.map((item) => {
-                  return <>
-                    <Typography onClick={() => this.addItemToMix(item)}>
-                    {item.name}
-                    </Typography>
-                        </>
-                      })}
-                </AccordionDetails>
-              </Accordion>
-            </AccordionDetails>
-          </Accordion> */}
-          
+            <div class="dropdown shadow-lg">
+            <button class="dropbtn1 shadow-lg">Confections</button>
+            <div class="dropdown-content1">
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Banana Chips</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.bananaChipItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Gummies</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.gummyItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Pretzels</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.pretzelItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              </div>
+            </div>
         </header>
         <h1 id="mixBuilder">Mix Builder</h1>
         <p>Your user ID is: {this.props.store.user.id}</p>
@@ -165,7 +183,7 @@ class UserPage extends Component {
                             </>
           })}
         </ul>
-        <button onClick={this.backToMixes}>Mixes</button>
+        <button className="btns shadow-lg" onClick={this.backToMixes}>Mixes</button>
         <img id='bg' src='https://www.shopmarketbasket.com/sites/default/files/inline-images/trail-mix-in-bowls-body_1.jpg'></img>
       </div>
     );

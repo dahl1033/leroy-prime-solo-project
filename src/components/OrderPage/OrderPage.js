@@ -56,7 +56,7 @@ class OrderPage extends Component {
                             </>
           })}
         </ul>
-        <button onClick={this.onClickContinueOrder}>Continue</button>
+        <button className="btns shadow-lg" onClick={this.onClickContinueOrder}>Continue</button>
         <img id='bg' src='https://render.fineartamerica.com/images/images-profile-flow/400/images/artworkimages/mediumlarge/1/nuts-in-black-and-white-tom-mc-nemar.jpg'></img>
       </div>
       // onClick={() => this.addItemToMix(item)}

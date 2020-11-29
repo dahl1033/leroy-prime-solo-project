@@ -73,8 +73,8 @@ class MixesPage extends Component {
                         )
           })}
         </ul>
-        <button onClick={this.backToOrders}>Orders</button>
-        <button onClick={this.completeOrder}>Submit</button>
+        <button className="btns shadow-lg" onClick={this.backToOrders}>Orders</button>
+        <button className="btns shadow-lg" onClick={this.completeOrder}>Submit</button>
                 <img id='bg' src='https://storage.needpix.com/rsynced_images/tas-de-noix-.jpg'></img>
       </div>
     );

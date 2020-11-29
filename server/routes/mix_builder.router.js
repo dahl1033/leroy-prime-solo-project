@@ -5,8 +5,8 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/items', (req, res) => {
-  const queryText = `SELECT * FROM "items";`;
+router.get('/item/type', (req, res) => {
+  const queryText = `SELECT * FROM items WHERE "item_type_id" = 2;`;
   pool.query(queryText)
   .then((result) => {
       res.send(result.rows)
