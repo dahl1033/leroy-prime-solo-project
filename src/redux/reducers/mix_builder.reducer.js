@@ -65,11 +65,11 @@ const bananaChipItems = (state = [], action) => {
             return action.payload;
     }
 }
-const confectionItems = (state = [], action) => {
+const searchItems = (state = [], action) => {
     switch (action.type) {
         default:
             return state;
-        case 'SET_CONFECTION_ITEMS':
+        case 'SET_SEARCH_ITEMS':
             return action.payload;
     }
 }
@@ -96,6 +96,6 @@ export default combineReducers ({
     bananaChipItems,
     pretzelItems,
     gummyItems,
-    confectionItems,
+    searchItems,
     proportions,
 });

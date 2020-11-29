@@ -34,6 +34,11 @@ header{
 .dropdown-wrapper{
     display: block;
 }
+.dropdown-search-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 .dropdown {
     position: relative;
@@ -50,6 +55,7 @@ header{
 }
 
 .dropdown-content1 {
+    color: black;
     display: none;
     position: absolute;
     background-color: rgb(255, 255, 255);
@@ -79,4 +85,7 @@ header{
 .dropdown:hover .dropbtn1 {
     transform: scale(1.05);
     background-color: rgb(255, 255, 255, 0.2);
+}
+.search-results{
+    color: black
 }

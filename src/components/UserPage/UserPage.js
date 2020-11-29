@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 import './UserPage.css';
 class UserPage extends Component {
+  state = {
+    name: '',
+  };
   componentDidMount() {
     this.getNutItems();
     // this.props.dispatch({type: 'FETCH_PROPORTIONS', payload: {id: this.props.store.mixes.currentWorkingMix.id}});
@@ -30,8 +33,14 @@ class UserPage extends Component {
 
   }
   
-  componentDidUpdate() {
-
+  handleChange = (event) => {
+     console.log(this.state.name);
+    this.setState({
+      name: event
+    });
+    if(this.state.name != ''){
+      this.props.dispatch({type: 'FETCH_SEARCH_ITEMS', payload: this.state.name});
+    }
   }
 
   addItemToMix = (item) => {
@@ -168,12 +177,25 @@ class UserPage extends Component {
               </div>
               </div>
             </div>
+            <div class="dropdown shadow-lg">
+            <input onChange={e => this.handleChange(e.target.value)}></input>
+            <div class="dropdown-content1">
+              <div class="dropdown-search-wrapper">
+                {this.props.store.items.searchItems.map((item) => {
+                    return <>
+                      <a className="search-results" onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+              </div>
+              </div>
+            </div>
+            
         </header>
         <h1 id="mixBuilder">Mix Builder</h1>
-        <p>Your user ID is: {this.props.store.user.id}</p>
-        <p>Your order ID is: {this.props.store.order.orderId}</p>
-        <p>Your mix ID is: {this.props.store.mixes.mixId}</p>
-        <h1>Items in Mix:</h1>
+        <div className="mix-main shadow-lg">DISPLAYING MIX</div>
+        <h1>Items in {this.props.store.order.orderInfo.name}</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {
                       return <>

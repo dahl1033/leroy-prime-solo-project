@@ -5,6 +5,18 @@ const router = express.Router();
 /**
  * GET route template
  */
+router.get('/item/search', (req, res) => {
+    console.log('XXXXXXXXXXXXXXXX',req.query.item);
+  const queryText = `SELECT * FROM items WHERE "type_description" LIKE('%${req.query.item}%') LIMIT 7;`;
+  pool.query(queryText,)
+  .then((result) => {
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query ${err}`);
+      res.sendStatus(500);
+  })
+});
 router.get('/item/type', (req, res) => {
   const queryText = `SELECT * FROM items WHERE "item_type_id" = 2;`;
   pool.query(queryText)
