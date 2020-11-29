@@ -35,7 +35,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="light" className="newOrderBtn text-light" color="primary" onClick={handleClickOpen}>
         New Order
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

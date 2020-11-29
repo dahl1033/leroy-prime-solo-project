@@ -33,28 +33,24 @@ class OrderPage extends Component {
   render() {
     return (
       <div className="container shadow-lg rounded" >
-        <FormDialog/>
         <h1 id="heading">My Orders</h1>
-        <p>Your ID is: {this.props.store.user.id}</p>
-        <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
-        <h1>Orders Uncompleted:</h1>
+        <FormDialog/>
+        <h2>Orders Uncompleted:</h2>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersUncompleted.map((item) => {
                       return <>
                         <li className="ordersli shadow-lg rounded" onClick={() => this.setWorkingOrder(item.id)}>
-                          {item.id}
                           {item.name}
                         </li>
                         <button onClick={() => this.onClickDeleteOrder(item.id)}>Delete</button>
                             </>
           })}
         </ul>
-        <h1>Orders Completed:</h1>
+        <h2>Orders Completed:</h2>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersCompleted.map((item) => {
                       return <>
                         <li className="ordersli shadow-lg rounded">
-                          {item.id}
                           {item.name}
                         </li>
                             </>

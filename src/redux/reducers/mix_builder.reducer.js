@@ -33,6 +33,14 @@ const pistachioItems = (state = [], action) => {
             return action.payload;
     }
 }
+const driedFruitItems = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_DRIED_FRUIT_ITEMS':
+            return action.payload;
+    }
+}
 const proportions = (state = [], action) => {
     switch (action.type) {
         default:
@@ -52,5 +60,6 @@ export default combineReducers ({
     pecanItems,
     cashewItems,
     pistachioItems,
+    driedFruitItems,
     proportions,
 });

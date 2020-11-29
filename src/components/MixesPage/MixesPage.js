@@ -20,6 +20,8 @@ class MixesPage extends Component {
     componentDidMount() {
         this.props.dispatch({type: 'FETCH_MIXES_TO_ORDER'});
         this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: this.props.store.order.orderId});
+        this.props.dispatch({type: 'FETCH_CURRENT_ORDER_INFO', payload: {orderId: this.props.store.order.orderId}});
+
     }
     componentDidUpdate(prevProps) {
         if (this.props.store.mixes== prevProps.store.mixes) {
@@ -47,15 +49,15 @@ class MixesPage extends Component {
   render() {
     return (
       <div className="container shadow-lg rounded">
-        <h2>{this.state.heading}</h2>
+        <h2>{this.props.store.order.orderInfo.name}</h2>
         
         <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
         <h2>Current Mixes:</h2>
-        <ul className="ordersul shadow-lg rounded">
+        <ul className="ordersul shadow-lg rounded" xs={6}>
           {this.props.store.mixes.mixesInOrder.map((item) => {
                       return (
                         <li key={item.id} className="ordersli shadow-lg rounded" onClick={() => this.onClickContinueMixToOrder(item)}>
-                          {item.id}
+                          <h3>{item.name}</h3>
                         </li>
                       )
           })}

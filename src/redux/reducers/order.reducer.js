@@ -8,6 +8,15 @@ const orderId = (state=0, action) => {
             return action.payload
     }
 }
+const orderInfo = (state={}, action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_CURRENT_ORDER_INFO':
+            return action.payload
+    }
+}
+
 const ordersCompleted = (state=[], action) => {
     switch (action.type) {
         default:
@@ -28,5 +37,6 @@ const ordersUncompleted = (state=[], action) => {
 export default combineReducers ({
     orderId,
     ordersCompleted,
-    ordersUncompleted
+    ordersUncompleted,
+    orderInfo
 });

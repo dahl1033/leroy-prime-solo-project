@@ -33,6 +33,12 @@ function* deleteOrder(action) {
     yield put ({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: action.payload.user_id}});
     yield put ({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: action.payload.user_id}});
     }
+function* getOrderInfo(action) {
+    console.log(`B get order info ${action.payload.orderId}`);
+    const itemsResponse = yield axios.get(`/api/order/order/info/${action.payload.orderId}`);
+    console.log('in getOrderInfo', itemsResponse.data[0]);
+    yield put ({type: 'SET_CURRENT_ORDER_INFO', payload: itemsResponse.data[0]});
+    }
 // saga watcher
 function* orderSaga() {
     yield takeLatest('ADD_NEW_ORDER', addNewOrder);
@@ -41,6 +47,8 @@ function* orderSaga() {
     yield takeLatest('SUBMIT_ORDER', submitOrder);
     yield takeLatest('DELETE_ORDER', deleteOrder);
     yield takeLatest('FETCH_CURRENT_ORDER_ID', getCurrentOrderId);
+    yield takeLatest('FETCH_CURRENT_ORDER_INFO', getOrderInfo);
+
 
 }
 

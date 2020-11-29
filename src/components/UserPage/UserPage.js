@@ -51,22 +51,78 @@ class UserPage extends Component {
     return (
       <div className="container shadow-lg rounded">
         <header>
-          {/* <div className="topnav" id="myTopnav">
-            <div className="dropdown">
-              <button className="dropbtn">Almonds</button>
-              <div className="dropdown-content" >
-                <a>Almonds</a>
+          <div class="dropdown shadow-lg">
+            <button class="dropbtn1 shadow-lg">Nuts</button>
+            <div class="dropdown-content1">
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Almonds</button>
+              <div class="dropdown-content2">
                 {this.props.store.items.almondItems.map((item) => {
-                  return <>
-                    <a onClick={() => this.addItemToMix(item)}>
-                    {item.name}
-                    </a>
-                        </>
-                      })}
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Pecans</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.pecanItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Cashews</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.cashewItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Pistachios</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.pistachioItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
               </div>
             </div>
-          </div> */}
-          <Accordion>
+          </div>
+          <div class="dropdown shadow-lg">
+            <button class="dropbtn1 shadow-lg">Nuts</button>
+            <div class="dropdown-content1">
+              <div class="dropdown-wrapper">
+              <button class="dropbtn2">Almonds</button>
+              <div class="dropdown-content2">
+                {this.props.store.items.almondItems.map((item) => {
+                    return <>
+                      <a onClick={() => this.addItemToMix(item)}>
+                      {item.name}
+                      </a>
+                          </>
+                        })}
+                </div>
+              </div>
+              </div>
+            </div>
+
+          {/* <Accordion>
             <AccordionSummary
               aria-controls="panel1a-content"
               id="panel1a-header"
@@ -92,7 +148,7 @@ class UserPage extends Component {
                 </AccordionDetails>
               </Accordion>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
           
         </header>
         <h1 id="mixBuilder">Mix Builder</h1>

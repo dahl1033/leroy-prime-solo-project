@@ -5,6 +5,33 @@ const router = express.Router();
 /**
  * GET route template
  */
+router.get('/order/info/:id', (req, res) => {
+  console.log('hereeeee', req.params);
+  const queryText = `SELECT * FROM "order" WHERE id = $1 LIMIT 1;`;
+  pool.query(queryText, [req.params.id])
+  .then((result) => {
+      console.log('in get order info', result.rows);
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query get('/:id')${err}`);
+      res.sendStatus(500);
+  })
+});
+
+router.get('/order/:id', (req, res) => {
+  
+  const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE AND user_id = $1 ORDER BY order_date DESC, order_time DESC LIMIT 1;`;
+  pool.query(queryText, [req.params.id])
+  .then((result) => {
+      console.log('in get order :id', result.rows);
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query get('/order/:id') ${err}`);
+      res.sendStatus(500);
+  })
+});
 router.get('/order/:id', (req, res) => {
   
   const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE AND user_id = $1 ORDER BY order_date DESC, order_time DESC LIMIT 1;`;
