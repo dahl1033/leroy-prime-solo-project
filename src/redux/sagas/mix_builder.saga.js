@@ -83,7 +83,7 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
             console.log('ERROR in fetchPretzelItems', error);
         }
     }
-    // GET request to grab  items from the DB where type_descripton is like user inputted string,
+    // GET request to grab  items from the DB where type_descripton is like user inputted string
     function* fetchSearchItems(action) {
         try {
             const itemsResponse = yield axios.get(`/api/mixBuilder/item/search`, { params: {item: action.payload} });    

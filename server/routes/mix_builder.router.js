@@ -42,7 +42,7 @@ router.get('/item', (req, res) => {
   })
 });
 router.get('/mixItems', (req, res) => {
-  const queryText = `SELECT mix_id, item_id, item_size, items.name, items.price_per_lb
+  const queryText = `SELECT items_in_mix.id, mix_id, item_id, item_size, items.name, items.price_per_lb
                       FROM "items_in_mix"
                       JOIN mix ON mix.id = items_in_mix.mix_id
                       JOIN items ON items.id = items_in_mix.item_id
