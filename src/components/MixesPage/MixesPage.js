@@ -49,10 +49,9 @@ class MixesPage extends Component {
   render() {
     return (
       <div className="container shadow-lg rounded">
-        <h2>{this.props.store.order.orderInfo.name}</h2>
-        
-        <p>Your Working Order ID is: {this.props.store.order.orderId}</p>
+        <h2 className="mix-name">{this.props.store.order.orderInfo.name}</h2>
         <h2>Current Mixes:</h2>
+        <p>Select a mix to continue</p>
         <ul className="ordersul shadow-lg rounded" xs={6}>
           {this.props.store.mixes.mixesInOrder.map((item) => {
                       return (
@@ -63,7 +62,7 @@ class MixesPage extends Component {
           })}
         </ul>
         
-        <h2>Add New Mix</h2>
+        <h2>Add New Mix to Order</h2>
         <ul className="selectMixesUl shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
@@ -74,7 +73,7 @@ class MixesPage extends Component {
           })}
         </ul>
         <button className="btns shadow-lg" onClick={this.backToOrders}>Orders</button>
-        <button className="btns shadow-lg" onClick={this.completeOrder}>Submit</button>
+        <button className="btns shadow-lg" id="submitBtn" onClick={this.completeOrder}>Submit</button>
                 <img id='bg' src='https://storage.needpix.com/rsynced_images/tas-de-noix-.jpg'></img>
       </div>
     );

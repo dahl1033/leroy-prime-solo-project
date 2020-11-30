@@ -26,10 +26,17 @@ body{
     background-color: black;
     color: white;
 }
+.btnForm{
+    float: right;
+}
 .ordersli{
+    list-style: none;
     padding: 2rem;
-    width: 45%;
+    width: 43%;
     margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .ordersul {
     padding: 2rem;

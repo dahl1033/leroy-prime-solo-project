@@ -34,15 +34,18 @@ class OrderPage extends Component {
     return (
       <div className="container shadow-lg rounded" >
         <h1 id="heading">My Orders</h1>
+        <div className="btnForm">
         <FormDialog/>
+        </div>
         <h2>Orders Uncompleted:</h2>
+        <p>Select an order to continue</p>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.order.ordersUncompleted.map((item) => {
                       return <>
                         <li className="ordersli shadow-lg rounded" onClick={() => this.setWorkingOrder(item.id)}>
                           {item.name}
                         </li>
-                        <button onClick={() => this.onClickDeleteOrder(item.id)}>Delete</button>
+                        <button className="deleteBtn"onClick={() => this.onClickDeleteOrder(item.id)}>X</button>
                             </>
           })}
         </ul>
@@ -56,7 +59,7 @@ class OrderPage extends Component {
                             </>
           })}
         </ul>
-        <button className="btns shadow-lg" onClick={this.onClickContinueOrder}>Continue</button>
+        <button className="btns shadow-lg" id="rightBtn" onClick={this.onClickContinueOrder}>Continue</button>
         <img id='bg' src='https://render.fineartamerica.com/images/images-profile-flow/400/images/artworkimages/mediumlarge/1/nuts-in-black-and-white-tom-mc-nemar.jpg'></img>
       </div>
       // onClick={() => this.addItemToMix(item)}

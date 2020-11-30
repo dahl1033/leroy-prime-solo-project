@@ -178,7 +178,7 @@ class UserPage extends Component {
               </div>
             </div>
             <div class="dropdown shadow-lg">
-            <input onChange={e => this.handleChange(e.target.value)}></input>
+            <input id="searchInput" onChange={e => this.handleChange(e.target.value)}></input>
             <div class="dropdown-content1">
               <div class="dropdown-search-wrapper">
                 {this.props.store.items.searchItems.map((item) => {
@@ -193,14 +193,14 @@ class UserPage extends Component {
             </div>
             
         </header>
-        <h1 id="mixBuilder">Mix Builder</h1>
         <div className="mix-main shadow-lg">DISPLAYING MIX</div>
         <h1>Items in {this.props.store.order.orderInfo.name}</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {
                       return <>
                         <li className="ordersli shadow-lg rounded" onClick={() => this.deleteItemFromMix(item)}>
-                          {item.name}
+                          <p>{item.name} </p>
+          <p>{item.price_per_lb-0.01}/lb</p>
                         </li>
                             </>
           })}

@@ -16,4 +16,9 @@
     justify-content: center;
     text-align: center;
 }
-
+.mix-name{
+    text-align: center;
+}
+#submitBtn{
+    float: right;
+}
