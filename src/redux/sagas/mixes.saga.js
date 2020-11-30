@@ -51,6 +51,17 @@ function* fetchMixInfo(action) {
         console.log('ERROR in fetchMixInfo', error);
     }
 }
+// DELETE request to get rid of an order
+function* deleteMix(action) {
+    try {
+        yield axios.delete(`/api/mixes/${action.payload.mixId}` );
+        yield put ({type: 'FETCH_MIXES_IN_ORDER', payload: action.payload.orderId});
+    }
+    catch (error) {
+        console.log('ERROR in fetchMixesInOrder', error);
+    }
+    
+    }
 // saga watcher
 function* mixesSaga() {
     yield takeEvery('FETCH_MIXES_TO_ORDER', fetchMixesToOrder);
@@ -58,6 +69,7 @@ function* mixesSaga() {
     yield takeEvery('FETCH_MIXES_IN_ORDER', fetchMixesInOrder);
     yield takeEvery('FETCH_CURRENT_MIX_SIZE', fetchCurrentMixSize);
     yield takeEvery('FETCH_MIX_INFO', fetchMixInfo);
+    yield takeLatest('DELETE_MIX', deleteMix);
 }
 
 export default mixesSaga;

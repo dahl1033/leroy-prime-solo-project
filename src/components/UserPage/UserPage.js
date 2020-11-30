@@ -4,7 +4,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 
 import './UserPage.css';
@@ -62,6 +62,9 @@ class UserPage extends Component {
   }
   // send user back to mixes page
   backToMixes = () =>{
+    this.props.history.push(`/mixes`);
+  }
+  saveToMixes = () =>{
     this.props.history.push(`/mixes`);
   }
   
@@ -205,10 +208,25 @@ class UserPage extends Component {
                           <p>{item.name} </p>
           <p>{item.price_per_lb-0.01}/lb</p>
                         </li>
+                        <div className="proportion">
+                        <Typography id="discrete-slider-always" gutterBottom>
+                          Proportion of {item.name}
+                        </Typography>
+                        <Slider
+                          id="slider"
+                          defaultValue={50}
+                          // getAriaValueText={valuetext}
+                          aria-labelledby="discrete-slider-always"
+                          step={10}
+                          marks={[10,20,30,40,50,60,70,80,90,100]}
+                          valueLabelDisplay="on"
+                        />
+                        </div>
                             </>
           })}
         </ul>
         <button className="btns shadow-lg" onClick={this.backToMixes}>Mixes</button>
+        <button className="btns shadow-lg" id="submitBtn" onClick={this.saveToMixes}>Save</button>
         <img id='bg' src='https://www.shopmarketbasket.com/sites/default/files/inline-images/trail-mix-in-bowls-body_1.jpg'></img>
       </div>
     );

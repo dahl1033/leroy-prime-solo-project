@@ -70,5 +70,18 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         });
 });
+router.delete('/:id', (req, res) => {
+  // code here
+  console.log('in delete order', req.params.id)
+  const queryText = `DELETE FROM "mix" WHERE "id" = $1;` 
+    pool.query(queryText, [req.params.id])
+        .then( (result) => {
+            res.sendStatus(200);
+        })
+        .catch( (error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = router;
