@@ -14,24 +14,22 @@ export default function MixFormDialog(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // state variables
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('')
+  const [name, setName] = React.useState('');
 
+  // on click of adding new order, change the state status to true
   const handleClickOpen = () => {
       console.log(props.item, props.size, 'open');
     setOpen(true);
   };
-// onClickAddMixToOrder = (mix_size_id, order_id) => {
-//         this.props.dispatch({type: 'ADD_MIX_TO_ORDER', payload: {mix_size_id: mix_size_id, order_id: order_id}});
-//         this.props.dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: store.order.orderId});
-//     }
+  // on closing the input form add mix to order and fetch mixes in order from db
   const handleChangeClose = () => {
-    console.log(name);
     dispatch({type: 'ADD_MIX_TO_ORDER', payload: {mix_size_id: props.item, order_id: state.order.orderId, name: name}});    
     dispatch({type: 'FETCH_MIXES_IN_ORDER', payload: state.order.orderId});    
     setOpen(false);
   };
-
+  // on click of canceling a new order, change state status to false and close input form
   const handleClose = () => {
     setOpen(false); 
   };

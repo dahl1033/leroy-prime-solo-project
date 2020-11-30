@@ -89,3 +89,8 @@ header{
 .search-results{
     color: black
 }
+#searchInput {
+    border-radius: 8px;
+    background: transparent;
+    color: white;
+}

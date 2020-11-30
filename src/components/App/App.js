@@ -9,14 +9,12 @@ import {
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import OrderPage from '../OrderPage/OrderPage';
@@ -36,7 +34,7 @@ class App extends Component {
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/login" />
 
             {/* Visiting localhost:3000/about will show the about page. */}
             <Route
@@ -97,7 +95,7 @@ class App extends Component {
               component={RegisterPage}
               authRedirect="/order"
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows LandingPage at "/home"
@@ -105,12 +103,11 @@ class App extends Component {
               path="/home"
               component={LandingPage}
               authRedirect="/order"
-            />
+            /> */}
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <Footer />
         </div>
       </Router>
     );

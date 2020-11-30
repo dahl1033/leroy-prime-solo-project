@@ -40,6 +40,7 @@ class RegisterForm extends Component {
             Username:
             <input
               type="text"
+              class="inputForm"
               name="username"
               value={this.state.username}
               required
@@ -52,6 +53,7 @@ class RegisterForm extends Component {
             Password:
             <input
               type="password"
+              class="inputForm"
               name="password"
               value={this.state.password}
               required

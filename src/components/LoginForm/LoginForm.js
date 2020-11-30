@@ -45,6 +45,7 @@ class LoginForm extends Component {
             Username:
             <input
               type="text"
+              class="inputForm"
               name="username"
               required
               value={this.state.username}
@@ -57,6 +58,7 @@ class LoginForm extends Component {
             Password:
             <input
               type="password"
+              class="inputForm"
               name="password"
               required
               value={this.state.password}
