@@ -28,7 +28,7 @@ export default function FormDialog() {
     dispatch({type: 'ADD_NEW_ORDER', payload: {id: state.user.id, name: name}})
     dispatch({type: 'FETCH_CURRENT_ORDER_ID', payload: {id: state.user.id}})
     setOpen(false);
-    history.push(`/mixes`)    
+ 
   };
   // on click cancel new order form set open status to false and close dialog
   const handleClose = () => {
