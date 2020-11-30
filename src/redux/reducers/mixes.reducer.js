@@ -24,6 +24,14 @@ const mixId = (state=0, action) => {
             return action.payload.mixId
     }
 }
+const mixInfo = (state={}, action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_MIX_INFO':
+            return action.payload
+    }
+}
 const itemsInCurrentMix = (state=[], action) => {
     switch (action.type) {
         default:
@@ -47,5 +55,6 @@ export default combineReducers ({
     mixesToOrder,
     mixId,
     itemsInCurrentMix,
-    currentMixSize
+    currentMixSize,
+    mixInfo
 });

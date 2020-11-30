@@ -3,30 +3,30 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import FormDialog from '../NewOrderForm/NewOrderForm';
 import './OrderPage.css';
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name TemplateClass with the name for the new
-// component.
+
 class OrderPage extends Component {
-  state = {
-    heading: 'Class Component',
-  };
+  
+  // when page renders perform dispatch calls to retrieve order info from db
   componentDidMount() {
       this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
       this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
   }
+  // when page is changed perform dispatch calles to update orders
   componentDidUpdate(prevProps) {
     if (this.props.store.user.id !== prevProps.store.user.id) {
       this.props.dispatch({type: 'FETCH_ORDERS_COMPLETED', payload: {user_id: this.props.store.user.id}});
       this.props.dispatch({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: this.props.store.user.id}});
   }}
+  // on click push user to mixes page 
   onClickContinueOrder = () => {
     this.props.history.push(`/mixes`)
   }
+  // on click set working worker id in props and send user to mixes page
   setWorkingOrder = (orderId) => {
     this.props.dispatch({type: 'SET_CURRENT_ORDER_ID', payload: orderId})
     this.props.history.push(`/mixes`)
   }
+  // delete dispatch request to delete item in junction table based on user and order id
   onClickDeleteOrder = (id) => {
     this.props.dispatch({type: 'DELETE_ORDER', payload: {id: id, user_id: this.props.store.user.id}});
   }

@@ -12,13 +12,14 @@ class UserPage extends Component {
   state = {
     name: '',
   };
+  // on page load run this function
   componentDidMount() {
-    this.getNutItems();
-    // this.props.dispatch({type: 'FETCH_PROPORTIONS', payload: {id: this.props.store.mixes.currentWorkingMix.id}});
-
+    this.getItems();
+    this.props.dispatch({type:'FETCH_MIX_INFO', payload: {mixId: this.props.store.mixes.mixId}})
   }
-  // dispatch calls to get all the nuts from the DB based off their type of nut on page load
-  getNutItems = () => {
+
+  // dispatch calls to get all the items from the DB based off their type on page load
+  getItems = () => {
     this.props.dispatch({type: 'FETCH_INVENTORY_ITEMS'});
     this.props.dispatch({type: 'FETCH_ALMOND_ITEMS', payload: 'almond'});
     this.props.dispatch({type: 'FETCH_PECAN_ITEMS', payload: 'pecan'});
@@ -32,7 +33,7 @@ class UserPage extends Component {
     this.props.dispatch({type: 'FETCH_PRETZEL_ITEMS', payload: 'pretzel'});
 
   }
-  
+  // on user input when they type change local state to their string value
   handleChange = (event) => {
      console.log(this.state.name);
     this.setState({
@@ -42,7 +43,7 @@ class UserPage extends Component {
       this.props.dispatch({type: 'FETCH_SEARCH_ITEMS', payload: this.state.name});
     }
   }
-
+  // dispatch to add item to mix in DB
   addItemToMix = (item) => {
     console.log("IN addItemToMix: mixID =",this.props.store.mixes.mixId, "item ID", item.id);
     this.props.dispatch({ type: 'ADD_ITEM_TO_MIX', 
@@ -52,12 +53,14 @@ class UserPage extends Component {
                           }});
     this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: {mixId: this.props.store.mixes.mixId}});
   }
+  // on click delete item from mix in DB
   deleteItemFromMix = (item) => {
     console.log('in delete', item);
     this.props.dispatch({type: 'DELETE_ITEM_IN_MIX', payload: item });
     this.props.dispatch({type: 'FETCH_ITEMS_IN_MIX', payload: {mixId: this.props.store.mixes.mixId}});
 
   }
+  // send user back to mixes page
   backToMixes = () =>{
     this.props.history.push(`/mixes`);
   }
@@ -178,7 +181,7 @@ class UserPage extends Component {
               </div>
             </div>
             <div class="dropdown shadow-lg">
-            <input id="searchInput" onChange={e => this.handleChange(e.target.value)}></input>
+            <input placeholder='Search' id="searchInput" onChange={e => this.handleChange(e.target.value)}></input>
             <div class="dropdown-content1">
               <div class="dropdown-search-wrapper">
                 {this.props.store.items.searchItems.map((item) => {
@@ -193,8 +196,8 @@ class UserPage extends Component {
             </div>
             
         </header>
-        <div className="mix-main shadow-lg">DISPLAYING MIX</div>
-        <h1>Items in {this.props.store.order.orderInfo.name}</h1>
+        {/* <div className="mix-main shadow-lg"></div> */}
+        <h1>Items in {this.props.store.mixes.mixInfo.name} Mix</h1>
         <ul className="ordersul shadow-lg rounded">
           {this.props.store.mixes.itemsInCurrentMix.map((item) => {
                       return <>
@@ -212,5 +215,4 @@ class UserPage extends Component {
   }
 }
 
-// this allows us to use <App /> in index.js
 export default connect(mapStoreToProps)(UserPage);

@@ -14,13 +14,15 @@ export default function FormDialog() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // local state variables 
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState('')
 
+  // on click to add new order form set open status to true and open dialog
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  // on click to create new order perform dispatch requests to add new order to db and get other orders
   const handleChangeClose = () => {
     console.log(name);
     dispatch({type: 'ADD_NEW_ORDER', payload: {id: state.user.id, name: name}})
@@ -28,7 +30,7 @@ export default function FormDialog() {
     setOpen(false);
     history.push(`/mixes`)    
   };
-
+  // on click cancel new order form set open status to false and close dialog
   const handleClose = () => {
     setOpen(false); 
   };
