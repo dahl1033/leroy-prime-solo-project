@@ -39,6 +39,11 @@ class MixesPage extends Component {
       this.props.dispatch({type: 'SUBMIT_ORDER', payload: {id: this.props.store.order.orderId, user_id: this.props.store.user.id}}); 
       this.props.history.push(`/order`);
     }
+    onClickDeleteOrder = (id) => {
+      console.log('clicked', id);
+      this.props.dispatch({type: 'DELETE_MIX', payload: {orderId: this.props.store.order.orderId, mixId: id
+      }})
+    }
 
   render() {
     return (
@@ -49,9 +54,12 @@ class MixesPage extends Component {
         <ul className="ordersul shadow-lg rounded" xs={6}>
           {this.props.store.mixes.mixesInOrder.map((item) => {
                       return (
+                        <>
                         <li key={item.id} className="ordersli shadow-lg rounded" onClick={() => this.onClickContinueMixToOrder(item)}>
                           <h3>{item.name}</h3>
                         </li>
+                        <button className="deleteBtn"onClick={() => this.onClickDeleteOrder(item.id)}>X</button>
+                        </>
                       )
           })}
         </ul>

@@ -44,3 +44,6 @@
   float: right;
   margin-right: 4rem;
 }
+#title:hover{
+  transform: scale(2.0);
+}
