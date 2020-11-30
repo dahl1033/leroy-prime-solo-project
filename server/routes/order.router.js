@@ -5,23 +5,51 @@ const router = express.Router();
 /**
  * GET route template
  */
-// router.get('/', (req, res) => {
+router.get('/order/info/:id', (req, res) => {
+  console.log('hereeeee', req.params);
+  const queryText = `SELECT * FROM "order" WHERE id = $1 LIMIT 1;`;
+  pool.query(queryText, [req.params.id])
+  .then((result) => {
+      console.log('in get order info', result.rows);
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query get('/:id')${err}`);
+      res.sendStatus(500);
+  })
+});
+
+router.get('/order/:id', (req, res) => {
   
-//   const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE LIMIT 1;`;
-//   pool.query(queryText)
-//   .then((result) => {
-//       res.send(result.rows)
-//   })
-//   .catch((err) => {
-//       console.log(`Error on query ${err}`);
-//       res.sendStatus(500);
-//   })
-// });
+  const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE AND user_id = $1 ORDER BY order_date DESC, order_time DESC LIMIT 1;`;
+  pool.query(queryText, [req.params.id])
+  .then((result) => {
+      console.log('in get order :id', result.rows);
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query get('/order/:id') ${err}`);
+      res.sendStatus(500);
+  })
+});
+router.get('/order/:id', (req, res) => {
+  
+  const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE AND user_id = $1 ORDER BY order_date DESC, order_time DESC LIMIT 1;`;
+  pool.query(queryText, [req.params.id])
+  .then((result) => {
+      console.log('in get order :id', result.rows);
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query ${err}`);
+      res.sendStatus(500);
+  })
+});
 
 router.get('/orders', (req, res) => {
-  
-  const queryText = `SELECT * FROM "order" WHERE "comp_status"= $1;`;
-  pool.query(queryText, [req.query.type])
+  console.log('in get orders gen', req.query.type, req.query.user_id);
+  const queryText = `SELECT * FROM "order" WHERE "comp_status"= $1 AND user_id = $2;`;
+  pool.query(queryText, [req.query.type, req.query.user_id])
   .then((result) => {
       res.send(result.rows)
   })
@@ -36,9 +64,9 @@ router.get('/orders', (req, res) => {
  */
 router.post('/', (req, res) => {
   // code here
-  const queryText = `INSERT INTO "order" ("user_id")  VALUES (${req.body.id});`
-    console.log(req.body)
-    pool.query(queryText)
+  const queryText = `INSERT INTO "order" (user_id, name)  VALUES ($1, $2);`
+    console.log('in post order',req.body)
+    pool.query(queryText, [req.body.id, req.body.name])
         .then( (result) => {
             res.sendStatus(200);
         })

@@ -5,8 +5,20 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/items', (req, res) => {
-  const queryText = `SELECT * FROM "items";`;
+router.get('/item/search', (req, res) => {
+    console.log('XXXXXXXXXXXXXXXX',req.query.item);
+  const queryText = `SELECT * FROM items WHERE "type_description" LIKE('%${req.query.item}%') LIMIT 7;`;
+  pool.query(queryText,)
+  .then((result) => {
+      res.send(result.rows)
+  })
+  .catch((err) => {
+      console.log(`Error on query ${err}`);
+      res.sendStatus(500);
+  })
+});
+router.get('/item/type', (req, res) => {
+  const queryText = `SELECT * FROM items WHERE "item_type_id" = 2;`;
   pool.query(queryText)
   .then((result) => {
       res.send(result.rows)
@@ -35,7 +47,7 @@ router.get('/mixItems', (req, res) => {
                       JOIN mix ON mix.id = items_in_mix.mix_id
                       JOIN items ON items.id = items_in_mix.item_id
                       WHERE mix_id = $1;`;
-  pool.query(queryText,[req.query.item])
+  pool.query(queryText,[req.query.mixId])
   .then((result) => {
       res.send(result.rows)
   })

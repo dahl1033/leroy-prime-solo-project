@@ -10,8 +10,9 @@
     filter: blur(8px) grayscale(100%);
 }
 
-ul{
-
+.newOrderBtn:hover {
+    filter: brightness(150%);
+    border: solid;
 }
 
 .container{
@@ -27,9 +28,14 @@ body{
 }
 .ordersli{
     padding: 2rem;
+    width: 45%;
+    margin: 1rem;
 }
 .ordersul {
     padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    
 }
 .ordersli:hover {
     transform: scale(1.05);

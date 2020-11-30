@@ -1,13 +1,5 @@
 import { combineReducers } from 'redux';
 
-const itemInventory = (state = [], action) => {
-    switch (action.type) {
-        default:
-            return state;
-        case 'SET_INVENTORY_ITEMS':
-            return action.payload;
-    }
-}
 
 const almondItems = (state = [], action) => {
     switch (action.type) {
@@ -41,6 +33,46 @@ const pistachioItems = (state = [], action) => {
             return action.payload;
     }
 }
+const driedFruitItems = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_DRIED_FRUIT_ITEMS':
+            return action.payload;
+    }
+}
+const gummyItems = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_GUMMY_ITEMS':
+            return action.payload;
+    }
+}
+const pretzelItems = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_PRETZEL_ITEMS':
+            return action.payload;
+    }
+}
+const bananaChipItems = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_BANANA_ITEMS':
+            return action.payload;
+    }
+}
+const searchItems = (state = [], action) => {
+    switch (action.type) {
+        default:
+            return state;
+        case 'SET_SEARCH_ITEMS':
+            return action.payload;
+    }
+}
 const proportions = (state = [], action) => {
     switch (action.type) {
         default:
@@ -56,10 +88,14 @@ const proportions = (state = [], action) => {
 
 
 export default combineReducers ({
-    itemInventory,
     almondItems,
     pecanItems,
     cashewItems,
     pistachioItems,
+    driedFruitItems,
+    bananaChipItems,
+    pretzelItems,
+    gummyItems,
+    searchItems,
     proportions,
 });
