@@ -60,12 +60,13 @@ class MixesPage extends Component {
                       )
           })}
         </ul>
+        
         <h2>Add New Mix</h2>
         <ul className="selectMixesUl shadow-lg rounded">
           {this.props.store.mixes.mixesToOrder.map((item) => {
                       return (
                         <li className="selectMixesLi shadow-lg rounded" key={item.id} onClick={() => this.onClickAddMixToOrder(item.id, this.props.store.order.currentOrderId)}>
-                          {item.mix_size}
+                          {item.mix_size}(lb) Mix
                         </li>
                       )
           })}

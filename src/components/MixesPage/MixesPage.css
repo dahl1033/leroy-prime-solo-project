@@ -7,6 +7,7 @@
 }
 .selectMixesLi:hover {
     transform: scale(1.05);
+    background-color: rgb(255, 255, 255, 0.2);
 }
 .selectMixesUl {
     padding: 2rem;
@@ -15,3 +16,4 @@
     justify-content: center;
     text-align: center;
 }
+
