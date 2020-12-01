@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 
 // ORDER
@@ -125,7 +125,7 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
         catch (error) {
             console.log('ERROR in deleteItemFromMix', error);
         }
-        }
+    }
     function* updateProportions(action) {
         try {
             yield axios.put('/api/mixBuilder/proportion', action.payload);  

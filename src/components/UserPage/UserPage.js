@@ -214,15 +214,6 @@ class UserPage extends Component {
                           Proportion of {item.name}
                         </Typography>
                         <SliderBar id= {item.id} mixId={item.mix_id} proportion={item.item_size}/>
-                        {/* <Slider
-                          id="slider"
-                          defaultValue={50}
-                          // getAriaValueText={valuetext}
-                          aria-labelledby="discrete-slider-always"
-                          step={10}
-                          marks={[10,20,30,40,50,60,70,80,90,100]}
-                          valueLabelDisplay="on"
-                        /> */}
                         </div>
                             </>
           })}

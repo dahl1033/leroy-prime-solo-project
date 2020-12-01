@@ -47,6 +47,8 @@ function* addNewOrder(action) {
     try {
         yield axios.post(`/api/order`, action.payload)
         yield put ({type: 'FETCH_CURRENT_ORDER_ID', payload: action.payload});
+        yield put ({type: 'FETCH_ORDERS_UNCOMPLETED', payload: {user_id: action.payload.id}});
+
     }
     catch (error) {
         console.log('ERROR in fetchMixesInOrder', error);

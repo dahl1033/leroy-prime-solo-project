@@ -7,19 +7,20 @@ const AboutPage = () => (
   <div className="container">
     <div className="container shadow-lg rounded">
       <div className="about-block shadow-lg rounded"> 
-        <h2>Where ItsNuts Can Go</h2>
-        <p>ItsNuts is a custom nut-mix buiilder, to further this project I would like to implement more customization of a given nut mix(ex.dynamically syncing proportions)</p>
-        <p>Adding an image GUI for a representation of what a mix would look like while building</p>
-        <p>Add images to item inventory of what those nuts look like to make the user feel engaged and not just staring at words</p>
-      </div>
-      <div className="about-block shadow-lg rounded"> 
         <h2>Technologies Used:</h2>
         <p>React</p>
         <p>Redux</p>
         <p>Node.js</p>
         <p>Express</p>
+        <p>Postico</p>
         <p>Bootstrap</p>
         <p>Material UI</p>
+      </div>
+      <div className="about-block shadow-lg rounded"> 
+        <h2>Where ItsNuts Can Go</h2>
+        <p>ItsNuts is a custom nut-mix buiilder, to further this project I would like to implement more customization of a given nut mix(ex.dynamically syncing proportions)</p>
+        <p>Adding an image GUI for a representation of what a mix would look like while building</p>
+        <p>Add images to item inventory of what those nuts look like to make the user feel engaged and not just staring at words</p>
       </div>
       <div className="about-block shadow-lg rounded"> 
         <h2>Thank You</h2>
