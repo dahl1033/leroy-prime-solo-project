@@ -83,6 +83,20 @@ router.post('/', (req, res) => {
             res.sendStatus(500);
         });
 });
+
+router.put('/proportion', (req, res) => {
+  // POST route code here 
+  const queryText = `UPDATE items_in_mix SET item_size = $1 WHERE id = $2; `
+    console.log(req.body)
+    pool.query(queryText, [req.body.value, req.body.id])
+        .then( (result) => {
+            res.sendStatus(200);
+        })
+        .catch( (error) => {
+            console.log(`Error on query ${error}`);
+            res.sendStatus(500);
+        });
+});
 router.delete('/:id', (req, res) => {
   // DELETE route code here
   if (req.isAuthenticated()){
