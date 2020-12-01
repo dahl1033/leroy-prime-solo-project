@@ -6,6 +6,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import SliderBar from '../SliderBar/SliderBar';
 
 import './UserPage.css';
 class UserPage extends Component {
@@ -212,15 +213,7 @@ class UserPage extends Component {
                         <Typography id="discrete-slider-always" gutterBottom>
                           Proportion of {item.name}
                         </Typography>
-                        <Slider
-                          id="slider"
-                          defaultValue={50}
-                          // getAriaValueText={valuetext}
-                          aria-labelledby="discrete-slider-always"
-                          step={10}
-                          marks={[10,20,30,40,50,60,70,80,90,100]}
-                          valueLabelDisplay="on"
-                        />
+                        <SliderBar id= {item.id} mixId={item.mix_id} proportion={item.item_size}/>
                         </div>
                             </>
           })}

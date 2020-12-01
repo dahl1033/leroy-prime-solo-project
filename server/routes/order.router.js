@@ -2,9 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// router that GETs order info based of order id selected
 router.get('/order/info/:id', (req, res) => {
   console.log('hereeeee', req.params);
   const queryText = `SELECT * FROM "order" WHERE id = $1 LIMIT 1;`;
@@ -19,33 +17,7 @@ router.get('/order/info/:id', (req, res) => {
   })
 });
 
-router.get('/order/:id', (req, res) => {
-  
-  const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE AND user_id = $1 ORDER BY order_date DESC, order_time DESC LIMIT 1;`;
-  pool.query(queryText, [req.params.id])
-  .then((result) => {
-      console.log('in get order :id', result.rows);
-      res.send(result.rows)
-  })
-  .catch((err) => {
-      console.log(`Error on query get('/order/:id') ${err}`);
-      res.sendStatus(500);
-  })
-});
-router.get('/order/:id', (req, res) => {
-  
-  const queryText = `SELECT * FROM "order" WHERE "comp_status"= FALSE AND user_id = $1 ORDER BY order_date DESC, order_time DESC LIMIT 1;`;
-  pool.query(queryText, [req.params.id])
-  .then((result) => {
-      console.log('in get order :id', result.rows);
-      res.send(result.rows)
-  })
-  .catch((err) => {
-      console.log(`Error on query ${err}`);
-      res.sendStatus(500);
-  })
-});
-
+// router that GETs order information based of boolean value
 router.get('/orders', (req, res) => {
   console.log('in get orders gen', req.query.type, req.query.user_id);
   const queryText = `SELECT * FROM "order" WHERE "comp_status"= $1 AND user_id = $2;`;
@@ -59,11 +31,8 @@ router.get('/orders', (req, res) => {
   })
 });
 
-/**
- * POST route template
- */
+// router that POSTs new order into order table
 router.post('/', (req, res) => {
-  // code here
   const queryText = `INSERT INTO "order" (user_id, name)  VALUES ($1, $2);`
     console.log('in post order',req.body)
     pool.query(queryText, [req.body.id, req.body.name])

@@ -55,9 +55,7 @@ router.get('/:mixId/:mixSizeId', (req, res) => {
       res.sendStatus(500);
   })
 });
-/**
- * POST route template
- */
+
 router.post('/', (req, res) => {
     const queryText = `INSERT INTO "mix" ("order_id", "mix_size_id", "name") VALUES ($1, $2, $3);`
     console.log('POST new mix with',req.body)
@@ -71,7 +69,6 @@ router.post('/', (req, res) => {
         });
 });
 router.delete('/:id', (req, res) => {
-  // code here
   console.log('in delete order', req.params.id)
   const queryText = `DELETE FROM "mix" WHERE "id" = $1;` 
     pool.query(queryText, [req.params.id])

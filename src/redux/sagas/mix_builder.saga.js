@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 
 // ORDER
@@ -83,7 +83,7 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
             console.log('ERROR in fetchPretzelItems', error);
         }
     }
-    // GET request to grab  items from the DB where type_descripton is like user inputted string,
+    // GET request to grab  items from the DB where type_descripton is like user inputted string
     function* fetchSearchItems(action) {
         try {
             const itemsResponse = yield axios.get(`/api/mixBuilder/item/search`, { params: {item: action.payload} });    
@@ -125,12 +125,18 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
         catch (error) {
             console.log('ERROR in deleteItemFromMix', error);
         }
+    }
+    function* updateProportions(action) {
+        try {
+            yield axios.put('/api/mixBuilder/proportion', action.payload);  
+            const itemsResponse = yield axios.get(`/api/mixBuilder/mixItems`, { params: {mixId: action.payload.mixId} }); 
+            console.log(`IN fetchItemsInMix payload: ${itemsResponse.data}`);   
+            yield put ({type: 'SET_ITEMS_IN_MIX', payload: itemsResponse.data}); 
         }
-    // function* fetchProportionOfItems(action) {
-    //     const itemsResponse = yield axios.get(`/api/mixBuilder/${action.payload.id}`); 
-    //     console.log(`IN fetchItemsInMix payload: ${itemsResponse.data}`);   
-    //     yield put ({type: 'SET_PROPORTIONS', payload: itemsResponse.data});
-    // }
+        catch (error){
+            console.log('ERROR in updateProportions', error);
+        }
+    }
 
 // saga watcher
 function* mix_builderSaga() {
@@ -141,7 +147,7 @@ function* mix_builderSaga() {
     yield takeEvery('ADD_ITEM_TO_MIX', addItemToMix);
     yield takeEvery('FETCH_ITEMS_IN_MIX', fetchItemsInMix);
     yield takeEvery('DELETE_ITEM_IN_MIX', deleteItemFromMix);
-    // yield takeEvery('FETCH_PROPORTIONS', fetchProportionOfItems);
+    yield takeEvery('ADD_PROPORTION', updateProportions);
     yield takeEvery('FETCH_DRIED_FRUIT_ITEMS', fetchDriedFruitItems);
     yield takeEvery('FETCH_GUMMY_ITEMS', fetchGummyItems);
     yield takeEvery('FETCH_BANANA_ITEMS', fetchBananaChipItems);
